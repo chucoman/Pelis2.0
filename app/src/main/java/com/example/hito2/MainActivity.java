@@ -40,6 +40,14 @@ public class MainActivity extends AppCompatActivity {
             startActivity(registro);
         Toast.makeText(this, "Registrar", Toast.LENGTH_SHORT).show();
     }
+        else if(id ==R.id.item4) {
+            Intent listar = new Intent(this, ListaPelis.class);
+            startActivity(listar);
+            Toast.makeText(this, "Listar", Toast.LENGTH_SHORT).show();
+
+        }
+
+
         return super.onOptionsItemSelected(item);
     }
 

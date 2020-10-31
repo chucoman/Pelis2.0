@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
-        android:id="@+id/searchBox"
+        android:id="@+id/campoDescrip"
         android:inputType="textMultiLine"
         android:lines="8"
         android:minLines="6"
@@ -59,8 +59,8 @@
         android:id="@+id/btnRegistro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrar Pelicula"
         android:layout_marginTop="30dp"
-        />
+        android:onClick="onClick"
+        android:text="Registrar Pelicula" />
 
 </LinearLayout>

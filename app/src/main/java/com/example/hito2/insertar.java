@@ -28,10 +28,12 @@ public class insertar extends AppCompatActivity {
         setContentView(R.layout.activity_insertar);
         String campoGen;
         String campoYear;
-        campoId=(EditText) findViewById(R.id.campoId);
-        campoNombre=(EditText) findViewById(R.id.campoNombre);
-        comGeneros= (Spinner) findViewById(R.id.spinnerGenero);
-        comYear= (Spinner) findViewById(R.id.spinnerYear);
+
+        campoId= findViewById(R.id.campoId);
+        campoNombre= findViewById(R.id.campoNombre);
+        comGeneros= findViewById(R.id.spinnerGenero);
+        comYear= findViewById(R.id.spinnerYear);
+        campoDesc= findViewById(R.id.campoDescrip);
 
         //rellenar spinner generos
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.combo_generos,

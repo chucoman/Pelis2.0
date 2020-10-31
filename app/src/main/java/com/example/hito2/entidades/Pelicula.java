@@ -11,6 +11,9 @@ public class Pelicula {
         this.id = id;
     }
 
+    public Pelicula() {
+    }
+
     public Pelicula(Integer id, String nombre, String genero, Integer year, String descripcion) {
         this.id = id;
         this.nombre = nombre;
