@@ -113,4 +113,5 @@ public class insertar extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),"Id Registro:"+idResultante,Toast.LENGTH_SHORT).show();
 
     }
+
 }

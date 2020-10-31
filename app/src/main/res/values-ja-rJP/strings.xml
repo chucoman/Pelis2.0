@@ -13,4 +13,9 @@
     <string name="item3">登録するために</string>
     <string name="Descripcion">説明</string>
     <string name="item4">映画のリスト</string>
+    <string name="Ingles">英語</string>
+    <string name="Español">スペイン語</string>
+    <string name="Frances">フランス語</string>
+    <string name="Aleman">ドイツ人</string>
+    <string name="Japones">日本人</string>
 </resources>

@@ -13,4 +13,9 @@
     <string name="item3">" Zu registrieren"</string>
     <string name="Descripcion">Beschreibung</string>
     <string name="item4">Filme auflisten</string>
+    <string name="Ingles">Englisch</string>
+    <string name="Español">Spanisch</string>
+    <string name="Frances">" Französisch"</string>
+    <string name="Aleman">Deutsche</string>
+    <string name="Japones">Japanisch</string>
 </resources>

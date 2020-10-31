@@ -12,4 +12,9 @@
     <string name="item3">To Register</string>
     <string name="Descripcion">Description</string>
     <string name="item4">List movies</string>
+    <string name="Ingles">English</string>
+    <string name="Español">Spanish</string>
+    <string name="Frances">French</string>
+    <string name="Aleman">German</string>
+    <string name="Japones">Japanese</string>
 </resources>

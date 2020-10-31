@@ -13,4 +13,9 @@
     <string name="item3">Enregistrer</string>
     <string name="Descripcion">" La Description"</string>
     <string name="item4">Lister les films</string>
+    <string name="Ingles">Anglais</string>
+    <string name="Español">Espagnol</string>
+    <string name="Frances">Français</string>
+    <string name="Aleman">Allemand</string>
+    <string name="Japones">Japonais</string>
 </resources>

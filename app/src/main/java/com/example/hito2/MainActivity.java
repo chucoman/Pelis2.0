@@ -32,8 +32,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         int id =item.getItemId();
         if(id ==R.id.item1) {
+            Intent inicio = new Intent(this, MainActivity.class);
+            startActivity(inicio);
             Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show();
+
         }else if(id ==R.id.item2) {
+            Intent idiomas = new Intent(this, InfoPopUp.class);
+            startActivity(idiomas);
             Toast.makeText(this, "Idiomas", Toast.LENGTH_SHORT).show();
         }else if(id ==R.id.item3) {
             Intent registro = new Intent(this, insertar.class);

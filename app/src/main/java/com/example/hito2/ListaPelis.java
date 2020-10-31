@@ -4,10 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.hito2.Adaptadores.ListaPeliculasadapter;
 import com.example.hito2.entidades.ConexionSqliteHelper;
 import com.example.hito2.entidades.Pelicula;
 import com.example.hito2.utilidades.utilidades;
@@ -55,5 +60,28 @@ ConexionSqliteHelper conn;
 
             listPelicula.add(pelicula);
         }
+    }
+    //Mostrar y ocultar el menu
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.overflow, menu);
+        return true;
+
+    }
+    //fuciones botones menu
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id =item.getItemId();
+        if(id ==R.id.item1) {
+            Intent inicio = new Intent(this, MainActivity.class);
+            startActivity(inicio);
+            Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show();
+        }else if(id ==R.id.item2) {
+            Toast.makeText(this, "Idiomas", Toast.LENGTH_SHORT).show();
+        }else if(id ==R.id.item3) {
+            Intent registro = new Intent(this, insertar.class);
+            startActivity(registro);
+            Toast.makeText(this, "Registrar", Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
