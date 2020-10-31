@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CHUCO</string>
+    <string name="Generos">Generos</string>
+    <string name="item1">Inicio</string>
+    <string name="item2">Idioma</string>
+    <string name="Ficcion">Ficcion</string>
+    <string name="Accion">Accion</string>
+    <string name="Amor">Amor</string>
+    <string name="Drama">Drama</string>
+    <string name="Aventuras">Aventuras</string>
+    <string name="Terror">Terror</string>
+    <string name="item3">Registro</string>
+    <string name="Descripcion">Descripcion</string>
+</resources>

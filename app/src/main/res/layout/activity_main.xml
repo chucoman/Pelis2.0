@@ -62,9 +62,10 @@
                     android:src="@mipmap/ovni"></ImageView>
 
                 <TextView
+                    android:id="@+id/textviewFiccion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ficcion"
+                    android:text="@string/Ficcion"
                     android:textStyle="bold"
                     android:textAlignment="center"/>
             </LinearLayout>
@@ -92,9 +93,10 @@
                     android:layout_column="0"
                     android:src="@mipmap/accion"></ImageView>
                 <TextView
+                    android:id="@+id/textviewAccion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Accion"
+                    android:text="@string/Accion"
                     android:textStyle="bold"
                     android:textAlignment="center"/>
 
@@ -123,9 +125,10 @@
                     android:layout_column="0"
                     android:src="@mipmap/amor"></ImageView>
                 <TextView
+                    android:id="@+id/textviewAmor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Amor"
+                    android:text="@string/Amor"
                     android:textStyle="bold"
                     android:textAlignment="center"/>
 
@@ -154,9 +157,10 @@
                     android:layout_column="0"
                     android:src="@mipmap/llorar"></ImageView>
                 <TextView
+                    android:id="@+id/textviewDrama"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Drama"
+                    android:text="@string/Drama"
                     android:textStyle="bold"
                     android:textAlignment="center"/>
 
@@ -185,9 +189,10 @@
                     android:layout_column="0"
                     android:src="@mipmap/aventuras"></ImageView>
                 <TextView
+                    android:id="@+id/textviewAventuras"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Aventuras"
+                    android:text="@string/Aventuras"
                     android:textStyle="bold"
                     android:textAlignment="center"/>
 
@@ -216,9 +221,10 @@
                     android:layout_column="0"
                     android:src="@mipmap/asesinos"></ImageView>
                 <TextView
+                    android:id="@+id/textviewTerror"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Terror"
+                    android:text="@string/Terror"
                     android:textStyle="bold"
                     android:textAlignment="center"/>
 

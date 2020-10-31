@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hito2">
-        <activity android:name=".insertar"></activity>
+        <activity android:name=".ListaPelis"></activity>
+        <activity android:name=".insertar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

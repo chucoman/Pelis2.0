@@ -1,4 +1,14 @@
 <resources>
-    <string name="app_name">hito2</string>
-    <string name="Generos">Generos</string>
+    <string name="app_name">CHUCO</string>
+    <string name="Generos">Genders</string>
+    <string name="item1">Homepage</string>
+    <string name="item2">Languaje</string>
+    <string name="Ficcion">Fiction</string>
+    <string name="Accion">Action</string>
+    <string name="Amor">Love</string>
+    <string name="Drama">Drama</string>
+    <string name="Aventuras">Adventures</string>
+    <string name="Terror">Terror</string>
+    <string name="item3">To Register</string>
+    <string name="Descripcion">Description</string>
 </resources>
