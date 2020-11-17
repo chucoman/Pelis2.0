@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,40 +8,47 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context=".insertar">
+    android:background="@drawable/fondo"
+    tools:context=".InsertarPelicula">
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="REGISTRO DE USUARIOS"
+        android:text="REGISTRO DE PELICULAS"
+        android:textAlignment="center"
         android:textSize="25sp"
         android:textStyle="bold"
         android:layout_marginBottom="30dp"/>
 
-    <EditText
-        android:id="@+id/campoId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="id"/>
+
 
     <EditText
         android:id="@+id/campoNombre"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Titulo"/>
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/spinnerGenero"
+        android:spinnerMode="dialog"
+        android:prompt="@string/Generos"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <androidx.appcompat.widget.AppCompatSpinner
+        android:spinnerMode="dialog"
+        android:prompt="@string/Año"
         android:id="@+id/spinnerYear"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <EditText
+
+       <EditText
         android:id="@+id/campoDescrip"
+        android:textStyle="bold"
         android:inputType="textMultiLine"
         android:lines="8"
         android:minLines="6"
@@ -54,6 +60,25 @@
         android:paddingLeft="10dp">
 
     </EditText>
+
+
+    <ImageButton
+        android:id="@+id/btnMicro"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_microfono"
+        android:background="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/Presione"
+        android:textColor="#191919"/>
+
+
+
 
     <Button
         android:id="@+id/btnRegistro"

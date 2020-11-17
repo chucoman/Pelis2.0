@@ -1,27 +1,38 @@
 package com.example.hito2;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.hito2.entidades.ConexionSqliteHelper;
 import com.example.hito2.utilidades.utilidades;
 
-public class insertar extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Locale;
+
+public class InsertarPelicula extends AppCompatActivity {
+
+    private static final int REQ_CODE_SPEECH_INPUT=100;
+    private ImageButton btnHablar;
     Spinner comGeneros;
     Spinner comYear;
-    EditText campoId, campoNombre, campoDesc;
+    EditText campoNombre, campoDesc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,16 +40,25 @@ public class insertar extends AppCompatActivity {
         String campoGen;
         String campoYear;
 
-        campoId= findViewById(R.id.campoId);
+        //campoId= findViewById(R.id.campoId); al ser el campo un autoincremental no es necesario
         campoNombre= findViewById(R.id.campoNombre);
         comGeneros= findViewById(R.id.spinnerGenero);
         comYear= findViewById(R.id.spinnerYear);
         campoDesc= findViewById(R.id.campoDescrip);
+        btnHablar=findViewById(R.id.btnMicro);
+
+        btnHablar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iniciarEntradaVoz();
+            }
+        });
 
         //rellenar spinner generos
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.combo_generos,
                 android.R.layout.simple_spinner_item);
         comGeneros.setAdapter(adapter);
+
         comGeneros.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -52,13 +72,15 @@ public class insertar extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });comGeneros.setPrompt(getString(R.string.Generos));
 
         //rellenar spinner año
         ArrayAdapter<CharSequence> adapter1=ArrayAdapter.createFromResource(this,R.array.combo_year,
                 android.R.layout.simple_spinner_item);
         comYear.setAdapter(adapter1);
+        comGeneros.setPrompt(getString(R.string.Año));
         comYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(parent.getContext(),"Seleccionado: "+parent.getItemAtPosition(position).toString(),
@@ -70,6 +92,40 @@ public class insertar extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode){
+            case REQ_CODE_SPEECH_INPUT: {
+                if(resultCode== RESULT_OK && null!=data){
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    campoDesc.setText(result.get(0));
+
+                }
+                break;
+            }
+        }
+
+    }
+
+    private void iniciarEntradaVoz() {
+
+        Intent intent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault()); //reconocer el idioma del movil
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hola dime la descripcion"); //frase que aparece al presionar
+        try{
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        }catch (ActivityNotFoundException e){
+
+        }
+
+
+
 
     }
 
@@ -92,6 +148,10 @@ public class insertar extends AppCompatActivity {
         }else if(id ==R.id.item3) {
 
             Toast.makeText(this, "Registrar", Toast.LENGTH_SHORT).show();
+        }else if(id==R.id.item4){
+            Intent list = new Intent(this, ListaPelis.class);
+            startActivity(list);
+            Toast.makeText(this, "Liatado de Peliculas", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -102,15 +162,19 @@ public class insertar extends AppCompatActivity {
         ConexionSqliteHelper conn=new ConexionSqliteHelper(this, "bd_pelicula", null,1);
         SQLiteDatabase db = conn.getWritableDatabase();
         ContentValues values= new ContentValues();
-        values.put(utilidades.CAMPO_ID,campoId.getText().toString());
+       // values.put(utilidades.CAMPO_ID,campoId.getText().toString());al ser el campo un autoincremental no es necesario
         values.put(utilidades.CAMPO_NOMBRE,campoNombre.getText().toString());
         values.put(utilidades.CAMPO_GENERO,comGeneros.getSelectedItem().toString());
         values.put(utilidades.CAMPO_YEAR,comYear.getSelectedItem().toString());
         values.put(utilidades.CAMPO_DESCRIPCION,campoDesc.getText().toString());
-
         Long idResultante=db.insert(utilidades.TABLA_PELICULA,utilidades.CAMPO_ID,values);
-
         Toast.makeText(getApplicationContext(),"Id Registro:"+idResultante,Toast.LENGTH_SHORT).show();
+
+        //Volvemos a poner en blanco los campos
+        campoNombre.setText("");
+        campoDesc.setText("");
+
+
 
     }
 

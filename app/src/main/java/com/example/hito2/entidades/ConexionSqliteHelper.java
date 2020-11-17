@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import com.example.hito2.utilidades.utilidades;
 
 public class ConexionSqliteHelper extends SQLiteOpenHelper {
-    final String CREAR_TABLA_PELIDULA="CREATE TABLE pelicula (id INTEGER, nombre TEXT, genero TEXT, year INTEGER, descripcion TEXT)";
+    final String CREAR_TABLA_PELIDULA="CREATE TABLE pelicula (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, genero TEXT, year INTEGER, descripcion TEXT)";
 
     public ConexionSqliteHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

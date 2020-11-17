@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/purple_700"
+    android:background="@drawable/fondo"
     tools:context=".InfoPopUp">
 
     <TextView
@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:textSize="50dp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:textAlignment="center"
         android:text="@string/item2"/>
 
@@ -24,6 +25,7 @@
         android:layout_height="wrap_content"
         android:textSize="30dp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:textAlignment="center"
         android:text="@string/Ingles"/>
     <TextView
@@ -32,6 +34,7 @@
         android:layout_height="wrap_content"
         android:textSize="30dp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:textAlignment="center"
         android:text="@string/Español"/>
     <TextView
@@ -40,6 +43,7 @@
         android:layout_height="wrap_content"
         android:textSize="30dp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:textAlignment="center"
         android:text="@string/Frances"/>
     <TextView
@@ -48,6 +52,7 @@
         android:layout_height="wrap_content"
         android:textSize="30dp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:textAlignment="center"
         android:text="@string/Aleman"/>
     <TextView
@@ -56,6 +61,7 @@
         android:layout_height="wrap_content"
         android:textSize="30dp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:textAlignment="center"
         android:text="@string/Japones"/>
 

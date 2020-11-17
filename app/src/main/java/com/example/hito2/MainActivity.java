@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.hito2.entidades.ConexionSqliteHelper;
@@ -41,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(idiomas);
             Toast.makeText(this, "Idiomas", Toast.LENGTH_SHORT).show();
         }else if(id ==R.id.item3) {
-            Intent registro = new Intent(this, insertar.class);
+            Intent registro = new Intent(this, InsertarPelicula.class);
             startActivity(registro);
         Toast.makeText(this, "Registrar", Toast.LENGTH_SHORT).show();
     }

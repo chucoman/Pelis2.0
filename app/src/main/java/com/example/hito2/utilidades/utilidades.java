@@ -10,6 +10,19 @@ public class utilidades {
     public static final String CAMPO_DESCRIPCION="descripcion";
 
     public static final String CREAR_TABLA_PELICULA="CREATE TABLE " +
-            ""+TABLA_PELICULA+"("+CAMPO_ID+" INTEGER, "+CAMPO_NOMBRE+" TEXT, "+CAMPO_GENERO+" TEXT," +
+            ""+TABLA_PELICULA+"("+CAMPO_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+CAMPO_NOMBRE+" TEXT, "+CAMPO_GENERO+" TEXT," +
             " "+CAMPO_YEAR+" INTEGER, "+CAMPO_DESCRIPCION+" TEXT)";
+
+
+    /////////tabla usuarios
+
+    public static String TABLA_USUARIO="usuario";
+    public static final String CAMPO_ID_Usuario="id";
+    public static String CAMPO_NICKNAME="nickname";
+    public static String CAMPO_PASSWORD="passwd";
+
+    public static final String CREAR_TABLA_USUARIO="CREATE TABLE " +
+            ""+TABLA_USUARIO+"("+CAMPO_ID_Usuario+" INTEGER PRIMARY KEY AUTOINCREMENT, "+CAMPO_NICKNAME+" TEXT, "+CAMPO_PASSWORD+" TEXT)";
+
+
 }

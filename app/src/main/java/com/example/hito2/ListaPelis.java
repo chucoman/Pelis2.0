@@ -36,6 +36,7 @@ ConexionSqliteHelper conn;
         recyclerViewPeliculas.setLayoutManager(new LinearLayoutManager(this));
 
         consultarListaPeliculas();
+        
         ListaPeliculasadapter adapter=new ListaPeliculasadapter(listPelicula);
         recyclerViewPeliculas.setAdapter(adapter);
 
@@ -57,6 +58,7 @@ ConexionSqliteHelper conn;
             pelicula.setNombre(cursor.getString(1));
             pelicula.setGenero(cursor.getString(2));
             pelicula.setYear(cursor.getInt(3));
+            pelicula.setDescripcion(cursor.getString(4));
 
             listPelicula.add(pelicula);
         }
@@ -77,7 +79,7 @@ ConexionSqliteHelper conn;
         }else if(id ==R.id.item2) {
             Toast.makeText(this, "Idiomas", Toast.LENGTH_SHORT).show();
         }else if(id ==R.id.item3) {
-            Intent registro = new Intent(this, insertar.class);
+            Intent registro = new Intent(this, InsertarPelicula.class);
             startActivity(registro);
             Toast.makeText(this, "Registrar", Toast.LENGTH_SHORT).show();
         }

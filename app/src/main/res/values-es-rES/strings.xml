@@ -3,7 +3,7 @@
     <string name="app_name">CHUCO</string>
     <string name="Generos">Generos</string>
     <string name="item1">Inicio</string>
-    <string name="item2">Idioma</string>
+    <string name="item2">Idiomas</string>
     <string name="Ficcion">Ficcion</string>
     <string name="Accion">Accion</string>
     <string name="Amor">Amor</string>
@@ -12,10 +12,12 @@
     <string name="Terror">Terror</string>
     <string name="item3">Registro</string>
     <string name="Descripcion">Descripcion</string>
-    <string name="item4">Listar Peliculas</string>
-    <string name="Ingles">Ingles</string>
-    <string name="Español">Español</string>
-    <string name="Frances">Frances</string>
-    <string name="Aleman">Aleman</string>
+    <string name="Presione">Presione para hablar</string>
     <string name="Japones">Japones</string>
+    <string name="Aleman">Aleman</string>
+    <string name="Frances">Frances</string>
+    <string name="Español">Español</string>
+    <string name="Ingles">Ingles</string>
+    <string name="item4">List movies</string>
+    <string name="Año">Año</string>
 </resources>
