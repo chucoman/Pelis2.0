@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Listar", Toast.LENGTH_SHORT).show();
 
         }
+        else if(id ==R.id.item5) {//menu de mapa
+            Intent listar = new Intent(this, Map.class);
+            startActivity(listar);
+            Toast.makeText(this, "Mapa", Toast.LENGTH_SHORT).show();}
+
 
 
         return super.onOptionsItemSelected(item);

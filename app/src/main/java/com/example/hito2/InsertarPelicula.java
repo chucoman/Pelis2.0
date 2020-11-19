@@ -23,6 +23,7 @@ import com.example.hito2.entidades.ConexionSqliteHelper;
 import com.example.hito2.utilidades.utilidades;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 
 public class InsertarPelicula extends AppCompatActivity {
@@ -55,16 +56,21 @@ public class InsertarPelicula extends AppCompatActivity {
         });
 
         //rellenar spinner generos
-        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.combo_generos,
-                android.R.layout.simple_spinner_item);
-        comGeneros.setAdapter(adapter);
+       ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.combo_generos,
+               android.R.layout.simple_spinner_item);
 
+
+
+        comGeneros.setAdapter(adapter);
+        comGeneros.setPrompt(getString(R.string.Generos));
         comGeneros.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 Toast.makeText(parent.getContext(),"Seleccionado: "+parent.getItemAtPosition(position).toString(),
                         Toast.LENGTH_SHORT).show();
+
 
             }
 
@@ -75,10 +81,21 @@ public class InsertarPelicula extends AppCompatActivity {
         });comGeneros.setPrompt(getString(R.string.Generos));
 
         //rellenar spinner año
-        ArrayAdapter<CharSequence> adapter1=ArrayAdapter.createFromResource(this,R.array.combo_year,
-                android.R.layout.simple_spinner_item);
+       /* ArrayAdapter<CharSequence> adapter1=ArrayAdapter.createFromResource(this,R.array.combo_year,
+                android.R.layout.simple_spinner_item);*/ //este era el metodo antiguo metia los años de manera "manual" desde un array creado a mano en values
+
+        //cargo el array con los años desde 1900 hasta el año almacenado en el calendario
+        ArrayList<String> years = new ArrayList<String>();
+        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+        for (int i = 1900; i <= thisYear; i++) {
+            years.add(Integer.toString(i)); }
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
+        Spinner spinYear = (Spinner)findViewById(R.id.spinnerYear); spinYear.setAdapter(adapter1);
+
+
+
         comYear.setAdapter(adapter1);
-        comGeneros.setPrompt(getString(R.string.Año));
+        comYear.setPrompt(getString(R.string.Año));
         comYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override

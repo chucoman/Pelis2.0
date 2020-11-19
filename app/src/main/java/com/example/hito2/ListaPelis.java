@@ -43,6 +43,7 @@ ConexionSqliteHelper conn;
 
 
     }
+
     private void consultarListaPeliculas(){
         SQLiteDatabase db=conn.getReadableDatabase();
 

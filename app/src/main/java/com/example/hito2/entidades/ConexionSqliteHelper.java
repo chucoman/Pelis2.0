@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import com.example.hito2.utilidades.utilidades;
 
 public class ConexionSqliteHelper extends SQLiteOpenHelper {
-    final String CREAR_TABLA_PELIDULA="CREATE TABLE pelicula (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, genero TEXT, year INTEGER, descripcion TEXT)";
+   // final String CREAR_TABLA_PELICULA="CREATE TABLE pelicula (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, genero TEXT, year INTEGER, descripcion TEXT)";
 
     public ConexionSqliteHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -18,12 +18,14 @@ public class ConexionSqliteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(utilidades.CREAR_TABLA_PELICULA);
+        db.execSQL(utilidades.CREAR_TABLA_USUARIO);
 
     }
     //metodo onUpade cada vez que se ejecuta la app verifica si existe una version anterior de la db
     @Override
     public void onUpgrade(SQLiteDatabase db, int versionAntigua, int versionNueva) {
         db.execSQL("DROP TABLE IF EXISTS pelicula");
+        db.execSQL("DROP TABLE IF EXISTS usuario");
         onCreate(db);
 
     }

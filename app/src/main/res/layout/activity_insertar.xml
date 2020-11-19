@@ -39,9 +39,10 @@
         android:layout_height="wrap_content"/>
 
     <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinnerYear"
         android:spinnerMode="dialog"
         android:prompt="@string/Año"
-        android:id="@+id/spinnerYear"
+
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -76,8 +77,6 @@
         android:layout_gravity="center"
         android:text="@string/Presione"
         android:textColor="#191919"/>
-
-
 
 
     <Button
