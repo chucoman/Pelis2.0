@@ -61,6 +61,7 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:background="@drawable/fondo"
                 android:gravity="center"
+                android:onClick="Ficcion"
                 android:orientation="vertical">
 
                 <ImageView
@@ -74,9 +75,9 @@
                     android:id="@+id/textviewFiccion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/teal_200"
                     android:text="@string/Ficcion"
                     android:textAlignment="center"
+                    android:textColor="@color/teal_200"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -91,27 +92,31 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             app:cardElevation="8dp">
+
             <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:background="@drawable/fondo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:gravity="center"
+                android:onClick="Accion"
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_column="0"
                     android:src="@mipmap/accion"></ImageView>
+
                 <TextView
                     android:id="@+id/textviewAccion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/teal_200"
                     android:text="@string/Accion"
-                    android:textStyle="bold"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center"
+                    android:textColor="@color/teal_200"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -125,27 +130,31 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             app:cardElevation="8dp">
+
             <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:background="@drawable/fondo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:gravity="center"
+                android:onClick="Amor"
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_column="0"
                     android:src="@mipmap/amor"></ImageView>
+
                 <TextView
                     android:id="@+id/textviewAmor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/teal_200"
                     android:text="@string/Amor"
-                    android:textStyle="bold"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center"
+                    android:textColor="@color/teal_200"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -159,27 +168,31 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             app:cardElevation="8dp">
+
             <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:background="@drawable/fondo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:gravity="center"
+                android:onClick="Drama"
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_column="0"
                     android:src="@mipmap/llorar"></ImageView>
+
                 <TextView
                     android:id="@+id/textviewDrama"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/teal_200"
                     android:text="@string/Drama"
-                    android:textStyle="bold"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center"
+                    android:textColor="@color/teal_200"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -193,27 +206,31 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             app:cardElevation="8dp">
+
             <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
                 android:background="@drawable/fondo"
-                android:layout_height="wrap_content">
+                android:gravity="center"
+                android:onClick="Aventura"
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_column="0"
                     android:src="@mipmap/aventuras"></ImageView>
+
                 <TextView
                     android:id="@+id/textviewAventuras"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/teal_200"
                     android:text="@string/Aventuras"
-                    android:textStyle="bold"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center"
+                    android:textColor="@color/teal_200"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -227,27 +244,31 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             app:cardElevation="8dp">
+
             <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:background="@drawable/fondo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:gravity="center"
+                android:onClick="Terror"
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_column="0"
                     android:src="@mipmap/asesinos"></ImageView>
+
                 <TextView
                     android:id="@+id/textviewTerror"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/teal_200"
                     android:text="@string/Terror"
-                    android:textStyle="bold"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center"
+                    android:textColor="@color/teal_200"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

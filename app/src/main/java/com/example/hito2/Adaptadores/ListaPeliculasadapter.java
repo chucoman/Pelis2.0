@@ -8,17 +8,27 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hito2.ListaPelis;
 import com.example.hito2.R;
 import com.example.hito2.entidades.Pelicula;
 
 import java.util.ArrayList;
 
-public class ListaPeliculasadapter extends RecyclerView.Adapter<ListaPeliculasadapter.ViewHolderDatos> {
+public class ListaPeliculasadapter
+        extends RecyclerView.Adapter<ListaPeliculasadapter.ViewHolderDatos>
+        implements View.OnClickListener {
 
     ArrayList<Pelicula> listaPelicula;
+    private View.OnClickListener listener;
+
+
 
     public ListaPeliculasadapter(ArrayList<Pelicula> listaPelicula){
         this.listaPelicula = listaPelicula;
+    }
+    public void deleteItem(int index) {
+        listaPelicula.remove(index);
+        notifyItemRemoved(index);
     }
 
 
@@ -27,6 +37,7 @@ public class ListaPeliculasadapter extends RecyclerView.Adapter<ListaPeliculasad
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_list,null,false);
 
+        view.setOnClickListener(this);
         return new ViewHolderDatos(view);
     }
 
@@ -46,6 +57,18 @@ public class ListaPeliculasadapter extends RecyclerView.Adapter<ListaPeliculasad
         return listaPelicula.size();
     }
 
+    public void serOnClickListener(View.OnClickListener listener ){
+        this.listener=listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(listener!=null){
+            listener.onClick(v);
+        }
+
+    }
+
     public class ViewHolderDatos extends RecyclerView.ViewHolder {
         TextView id, nombre, genero, year;
         public ViewHolderDatos(@NonNull View itemView) {
@@ -56,5 +79,6 @@ public class ListaPeliculasadapter extends RecyclerView.Adapter<ListaPeliculasad
             year = (TextView) itemView.findViewById(R.id.textYear);
 
         }
+
     }
 }

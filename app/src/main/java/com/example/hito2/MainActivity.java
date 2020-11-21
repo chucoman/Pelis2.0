@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.hito2.entidades.ConexionSqliteHelper;
@@ -19,12 +20,53 @@ public class MainActivity extends AppCompatActivity {
 
         ConexionSqliteHelper conn=new ConexionSqliteHelper(this, "bd_pelicula", null,1);
     }
+
+    //funciones botones generos
+    public void Ficcion(View view){
+        Intent list= new Intent(this, ListGeneros.class);
+        list.putExtra("Genero","Ficcion");
+        startActivity(list);
+    }
+    public void Accion(View view){
+        Intent list = new Intent(this, ListGeneros.class);
+        list.putExtra("Genero","Accion");
+        startActivity(list);
+
+    }
+    public void Amor(View view){
+        Intent list = new Intent(this, ListGeneros.class);
+        list.putExtra("Genero","Amor");
+        startActivity(list);
+    }
+    public void Drama(View view){
+        Intent list= new Intent(this, ListGeneros.class);
+        list.putExtra("Genero","Drama");
+        startActivity(list);
+    }
+    public void Aventura(View view){
+        Intent list = new Intent(this, ListGeneros.class);
+        list.putExtra("Genero","Aventuras");
+        startActivity(list);
+
+    }
+    public void Terror(View view){
+        Intent list = new Intent(this, ListGeneros.class);
+        list.putExtra("Genero","Terror");
+        startActivity(list);
+
+    }
+
+
+
     //Mostrar y ocultar el menu
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.overflow, menu);
         return true;
 
     }
+
+
+
 
     //fuciones botones menu
     public boolean onOptionsItemSelected(MenuItem item){

@@ -3,6 +3,7 @@ package com.example.hito2;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.hito2.Adaptadores.ListaPeliculasadapter;
@@ -19,15 +21,21 @@ import com.example.hito2.utilidades.utilidades;
 
 import java.util.ArrayList;
 
-public class ListaPelis extends AppCompatActivity {
-ArrayList<Pelicula> listPelicula;
-RecyclerView recyclerViewPeliculas;
+public class ListGeneros extends AppCompatActivity {
+    ArrayList<Pelicula> listPelicula;
+    RecyclerView recyclerViewPeliculas;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    ConexionSqliteHelper conn;
 
-ConexionSqliteHelper conn;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_pelis);
+        setContentView(R.layout.activity_list_generos);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
 
         conn = new ConexionSqliteHelper(getApplicationContext(),"bd_pelicula", null,1);
 
@@ -36,20 +44,59 @@ ConexionSqliteHelper conn;
         recyclerViewPeliculas.setLayoutManager(new LinearLayoutManager(this));
 
         consultarListaPeliculas();
-        
+
         ListaPeliculasadapter adapter=new ListaPeliculasadapter(listPelicula);
         recyclerViewPeliculas.setAdapter(adapter);
+
+
+        /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Esto se ejecuta cada vez que se realiza el gesto
+                listPelicula.clear();
+                consultarListaPeliculas();
+
+                ListaPeliculasadapter adapter=new ListaPeliculasadapter(listPelicula);
+                recyclerViewPeliculas.setAdapter(adapter);
+
+
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });*/
+
+        adapter.serOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),
+                        "Se a borrado la pelicula: "+ listPelicula.get(recyclerViewPeliculas.getChildAdapterPosition(v)).getNombre(),
+                        Toast.LENGTH_SHORT).show();
+
+
+                int id = listPelicula.get(recyclerViewPeliculas.getChildAdapterPosition(v)).getId();
+                BoradoPeli(id);
+
+                listPelicula.clear();
+                consultarListaPeliculas();
+                recyclerViewPeliculas.setAdapter(adapter);
+
+
+            }
+
+        });
+
 
 
 
     }
 
+
     private void consultarListaPeliculas(){
+        String genero = getIntent().getStringExtra("Genero");
         SQLiteDatabase db=conn.getReadableDatabase();
 
         Pelicula pelicula = null;
 
-        Cursor cursor= db.rawQuery("SELECT * FROM " + utilidades.TABLA_PELICULA, null);
+        Cursor cursor= db.rawQuery("SELECT * FROM " + utilidades.TABLA_PELICULA +" WHERE "+ utilidades.CAMPO_GENERO +" = "+ "'"+ genero +"'", null);
 
         while(cursor.moveToNext()){
 
@@ -62,6 +109,8 @@ ConexionSqliteHelper conn;
             pelicula.setDescripcion(cursor.getString(4));
 
             listPelicula.add(pelicula);
+            db.close();
+
         }
     }
     //Mostrar y ocultar el menu
@@ -70,6 +119,12 @@ ConexionSqliteHelper conn;
         return true;
 
     }
+    public void BoradoPeli(int id){
+        SQLiteDatabase db=conn.getReadableDatabase();
+        db.execSQL("DELETE FROM " + utilidades.TABLA_PELICULA +" WHERE ID =" + id);
+        db.close();
+
+        }
 
     //fuciones botones menu
     public boolean onOptionsItemSelected(MenuItem item){
@@ -88,4 +143,8 @@ ConexionSqliteHelper conn;
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
 }
