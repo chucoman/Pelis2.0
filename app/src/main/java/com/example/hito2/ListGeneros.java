@@ -1,5 +1,6 @@
 package com.example.hito2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.example.hito2.Adaptadores.ListaPeliculasadapter;
 import com.example.hito2.entidades.ConexionSqliteHelper;
 import com.example.hito2.entidades.Pelicula;
 import com.example.hito2.utilidades.utilidades;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -26,7 +28,7 @@ public class ListGeneros extends AppCompatActivity {
     RecyclerView recyclerViewPeliculas;
     private SwipeRefreshLayout swipeRefreshLayout;
     ConexionSqliteHelper conn;
-
+    ListaPeliculasadapter adapter;
 
 
 
@@ -45,11 +47,12 @@ public class ListGeneros extends AppCompatActivity {
 
         consultarListaPeliculas();
 
-        ListaPeliculasadapter adapter=new ListaPeliculasadapter(listPelicula);
+        adapter=new ListaPeliculasadapter(listPelicula);
         recyclerViewPeliculas.setAdapter(adapter);
 
 
-        /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Esto se ejecuta cada vez que se realiza el gesto
@@ -62,13 +65,15 @@ public class ListGeneros extends AppCompatActivity {
 
                 swipeRefreshLayout.setRefreshing(false);
             }
-        });*/
+        });
 
+
+        //refresh al deslizar para abajo
         adapter.serOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),
-                        "Se a borrado la pelicula: "+ listPelicula.get(recyclerViewPeliculas.getChildAdapterPosition(v)).getNombre(),
+                        "Seleccionada : "+ listPelicula.get(recyclerViewPeliculas.getChildAdapterPosition(v)).getNombre(),
                         Toast.LENGTH_SHORT).show();
 
 
@@ -80,6 +85,7 @@ public class ListGeneros extends AppCompatActivity {
                 recyclerViewPeliculas.setAdapter(adapter);
 
 
+
             }
 
         });
@@ -87,8 +93,8 @@ public class ListGeneros extends AppCompatActivity {
 
 
 
-    }
 
+    }
 
     private void consultarListaPeliculas(){
         String genero = getIntent().getStringExtra("Genero");
@@ -119,12 +125,9 @@ public class ListGeneros extends AppCompatActivity {
         return true;
 
     }
-    public void BoradoPeli(int id){
-        SQLiteDatabase db=conn.getReadableDatabase();
-        db.execSQL("DELETE FROM " + utilidades.TABLA_PELICULA +" WHERE ID =" + id);
-        db.close();
 
-        }
+
+
 
     //fuciones botones menu
     public boolean onOptionsItemSelected(MenuItem item){
@@ -133,16 +136,40 @@ public class ListGeneros extends AppCompatActivity {
             Intent inicio = new Intent(this, MainActivity.class);
             startActivity(inicio);
             Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show();
+
         }else if(id ==R.id.item2) {
+            Intent idiomas = new Intent(this, InfoPopUp.class);
+            startActivity(idiomas);
             Toast.makeText(this, "Idiomas", Toast.LENGTH_SHORT).show();
         }else if(id ==R.id.item3) {
             Intent registro = new Intent(this, InsertarPelicula.class);
             startActivity(registro);
             Toast.makeText(this, "Registrar", Toast.LENGTH_SHORT).show();
         }
+        else if(id ==R.id.item4) {
+            Intent listar = new Intent(this, ListaPelis.class);
+            startActivity(listar);
+            Toast.makeText(this, "Listar", Toast.LENGTH_SHORT).show();
+
+        }
+        else if(id ==R.id.item5) {//menu de mapa
+            Intent listar = new Intent(this, Map.class);
+            startActivity(listar);
+            Toast.makeText(this, "Mapa", Toast.LENGTH_SHORT).show();}
+
+
 
         return super.onOptionsItemSelected(item);
     }
+    public void BoradoPeli(int id){
+        SQLiteDatabase db=conn.getReadableDatabase();
+        db.execSQL("DELETE FROM " + utilidades.TABLA_PELICULA +" WHERE ID =" + id);
+        db.close();
+
+
+        }
+
+
 
 
 

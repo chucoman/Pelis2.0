@@ -4,11 +4,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,6 +41,43 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
         btn_terreno = findViewById(R.id.btnTerreno);
 
 
+    }
+    //Mostrar y ocultar el menu
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.overflow, menu);
+        return true;
+
+    }
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id =item.getItemId();
+        if(id ==R.id.item1) {
+            Intent inicio = new Intent(this, MainActivity.class);
+            startActivity(inicio);
+            Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show();
+
+        }else if(id ==R.id.item2) {
+            Intent idiomas = new Intent(this, InfoPopUp.class);
+            startActivity(idiomas);
+            Toast.makeText(this, "Idiomas", Toast.LENGTH_SHORT).show();
+        }else if(id ==R.id.item3) {
+            Intent registro = new Intent(this, InsertarPelicula.class);
+            startActivity(registro);
+            Toast.makeText(this, "Registrar", Toast.LENGTH_SHORT).show();
+        }
+        else if(id ==R.id.item4) {
+            Intent listar = new Intent(this, ListaPelis.class);
+            startActivity(listar);
+            Toast.makeText(this, "Listar", Toast.LENGTH_SHORT).show();
+
+        }
+        else if(id ==R.id.item5) {//menu de mapa
+            Intent listar = new Intent(this, Map.class);
+            startActivity(listar);
+            Toast.makeText(this, "Mapa", Toast.LENGTH_SHORT).show();}
+
+
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void CHibrido(View view) {

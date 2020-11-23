@@ -1,5 +1,6 @@
 package com.example.hito2.Adaptadores;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 public class ListaPeliculasadapter
         extends RecyclerView.Adapter<ListaPeliculasadapter.ViewHolderDatos>
-        implements View.OnClickListener {
+        implements View.OnClickListener{
 
     ArrayList<Pelicula> listaPelicula;
     private View.OnClickListener listener;
@@ -47,6 +48,7 @@ public class ListaPeliculasadapter
         holder.nombre.setText(listaPelicula.get(position).getNombre().toString());
         holder.genero.setText(listaPelicula.get(position).getGenero().toString());
         holder.year.setText(listaPelicula.get(position).getYear().toString());
+        holder.descripcion.setText(listaPelicula.get(position).getDescripcion().toString());
 
 
 
@@ -69,16 +71,31 @@ public class ListaPeliculasadapter
 
     }
 
-    public class ViewHolderDatos extends RecyclerView.ViewHolder {
-        TextView id, nombre, genero, year;
+    public class ViewHolderDatos extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+        TextView id, nombre, genero, year, descripcion;
+        RecyclerView recycler;
         public ViewHolderDatos(@NonNull View itemView) {
             super(itemView);
             id = (TextView) itemView.findViewById(R.id.textId);
             nombre = (TextView) itemView.findViewById(R.id.textNomb);
             genero = (TextView) itemView.findViewById(R.id.textGen);
             year = (TextView) itemView.findViewById(R.id.textYear);
+            descripcion = (TextView) itemView.findViewById(R.id.textDesc);
+            recycler=itemView.findViewById(R.id.my_recycler_pelis);
+
 
         }
 
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            menu.setHeaderTitle("Selecciona Una opcion");
+            menu.add(getAdapterPosition(),101,0,"Modificar");
+            menu.add(getAdapterPosition(),102,1,"Borrar");
+
+        }
+    }
+    public void RemoveItem(int position){
+    listaPelicula.remove(position);
+    notifyDataSetChanged();
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CHUCO</string>
+    <string name="app_name">Chuco Pelis</string>
     <string name="Generos">" Geschlechter"</string>
     <string name="item1">Startseite</string>
     <string name="item2">" Sprache"</string>

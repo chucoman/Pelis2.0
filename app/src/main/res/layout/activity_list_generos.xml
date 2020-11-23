@@ -10,7 +10,8 @@
     android:padding="16dp"
     android:background="@drawable/fondo"
     android:orientation="vertical"
-    tools:context=".ListGeneros">
+    tools:context=".ListGeneros"
+    android:id="@+id/idListadoGen">
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,6 +30,8 @@
         android:id="@+id/my_recycler_pelis"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

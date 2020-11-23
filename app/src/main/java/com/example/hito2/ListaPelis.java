@@ -78,13 +78,28 @@ ConexionSqliteHelper conn;
             Intent inicio = new Intent(this, MainActivity.class);
             startActivity(inicio);
             Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show();
+
         }else if(id ==R.id.item2) {
+            Intent idiomas = new Intent(this, InfoPopUp.class);
+            startActivity(idiomas);
             Toast.makeText(this, "Idiomas", Toast.LENGTH_SHORT).show();
         }else if(id ==R.id.item3) {
             Intent registro = new Intent(this, InsertarPelicula.class);
             startActivity(registro);
             Toast.makeText(this, "Registrar", Toast.LENGTH_SHORT).show();
         }
+        else if(id ==R.id.item4) {
+            Intent listar = new Intent(this, ListaPelis.class);
+            startActivity(listar);
+            Toast.makeText(this, "Listar", Toast.LENGTH_SHORT).show();
+
+        }
+        else if(id ==R.id.item5) {//menu de mapa
+            Intent listar = new Intent(this, Map.class);
+            startActivity(listar);
+            Toast.makeText(this, "Mapa", Toast.LENGTH_SHORT).show();}
+
+
 
         return super.onOptionsItemSelected(item);
     }
