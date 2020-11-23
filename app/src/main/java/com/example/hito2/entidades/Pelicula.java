@@ -1,5 +1,7 @@
 package com.example.hito2.entidades;
 
+import android.widget.AdapterView;
+
 public class Pelicula {
     private Integer id;
     private String nombre;
@@ -12,6 +14,13 @@ public class Pelicula {
     }
 
     public Pelicula() {
+    }
+
+    public Pelicula(String nombre, String genero, Integer year, String descripcion) {
+        this.nombre = nombre;
+        this.genero = genero;
+        this.year = year;
+        this.descripcion = descripcion;
     }
 
     public Pelicula(Integer id, String nombre, String genero, Integer year, String descripcion) {
@@ -61,7 +70,4 @@ public class Pelicula {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
-
-
 }

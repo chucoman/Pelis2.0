@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.hito2.Adaptadores.ListaPeliculasadapter;
+import com.example.hito2.Adaptadores.PeliAdapter;
 import com.example.hito2.entidades.ConexionSqliteHelper;
 import com.example.hito2.entidades.Pelicula;
 import com.example.hito2.utilidades.utilidades;
@@ -20,8 +20,11 @@ import com.example.hito2.utilidades.utilidades;
 import java.util.ArrayList;
 
 public class ListaPelis extends AppCompatActivity {
-ArrayList<Pelicula> listPelicula;
-RecyclerView recyclerViewPeliculas;
+private RecyclerView mRecyclerView;
+private RecyclerView.LayoutManager mLayaoutManager;
+private ConexionSqliteHelper dbHelper;
+private PeliAdapter adapter;
+String filtro ="";
 
 ConexionSqliteHelper conn;
     @Override
@@ -29,41 +32,24 @@ ConexionSqliteHelper conn;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pelis);
 
-        conn = new ConexionSqliteHelper(getApplicationContext(),"bd_pelicula", null,1);
+        mRecyclerView=(RecyclerView)findViewById(R.id.my_recycler_pelis);
+        mRecyclerView.setHasFixedSize(true);
 
-        listPelicula=new ArrayList<>();
-        recyclerViewPeliculas= (RecyclerView) findViewById(R.id.my_recycler_pelis);
-        recyclerViewPeliculas.setLayoutManager(new LinearLayoutManager(this));
+        mLayaoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayaoutManager);
 
-        consultarListaPeliculas();
-        
-        ListaPeliculasadapter adapter=new ListaPeliculasadapter(listPelicula);
-        recyclerViewPeliculas.setAdapter(adapter);
+        precyclerView(filtro);
 
-
+    }
+    private void precyclerView(String filtro){
+        dbHelper = new ConexionSqliteHelper(this);
+        adapter = new PeliAdapter(dbHelper.pelisList(filtro),this,mRecyclerView);
+        mRecyclerView.setAdapter(adapter);
 
     }
 
-    private void consultarListaPeliculas(){
-        SQLiteDatabase db=conn.getReadableDatabase();
 
-        Pelicula pelicula = null;
 
-        Cursor cursor= db.rawQuery("SELECT * FROM " + utilidades.TABLA_PELICULA, null);
-
-        while(cursor.moveToNext()){
-
-            pelicula=new Pelicula();
-
-            pelicula.setId(cursor.getInt(0));
-            pelicula.setNombre(cursor.getString(1));
-            pelicula.setGenero(cursor.getString(2));
-            pelicula.setYear(cursor.getInt(3));
-            pelicula.setDescripcion(cursor.getString(4));
-
-            listPelicula.add(pelicula);
-        }
-    }
     //Mostrar y ocultar el menu
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.overflow, menu);
@@ -102,5 +88,10 @@ ConexionSqliteHelper conn;
 
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 }

@@ -14,12 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.hito2.Adaptadores.PeliAdapter;
 import com.example.hito2.entidades.ConexionSqliteHelper;
 import com.example.hito2.entidades.Pelicula;
 import com.example.hito2.utilidades.utilidades;
@@ -28,28 +28,45 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class InsertarPelicula extends AppCompatActivity {
+public class Modif extends AppCompatActivity {
 
     private static final int REQ_CODE_SPEECH_INPUT=100;
     private ImageButton btnHablar;
-    Spinner comGeneros;
-    Spinner comYear;
-    EditText campoNombre, campoDesc;
+    private Button btnupdate;
     private ConexionSqliteHelper dbHelper;
+
+    EditText campoNombre, campoDesc, comGeneros, comYear;
+    private long recivePeliId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_insertar);
+        setContentView(R.layout.activity_modif);
+
         String campoGen;
         String campoYear;
 
         //campoId= findViewById(R.id.campoId); al ser el campo un autoincremental no es necesario
-        campoNombre= findViewById(R.id.campoNombre);
-        comGeneros= findViewById(R.id.spinnerGenero);
-        comYear= findViewById(R.id.spinnerYear);
-        campoDesc= findViewById(R.id.campoDescrip);
-        btnHablar=findViewById(R.id.btnMicro);
+        campoNombre= findViewById(R.id.McampoNombre);
+        comGeneros= findViewById(R.id.MspinnerGenero);
+        comYear= findViewById(R.id.MspinnerYear);
+        campoDesc= findViewById(R.id.McampoDescrip);
+        btnHablar=findViewById(R.id.MbtnMicro);
+        btnupdate=findViewById(R.id.MbtnRegistro);
+        dbHelper = new ConexionSqliteHelper(this);
+
+        try{
+            recivePeliId =getIntent().getLongExtra("Peli_id",1);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        Pelicula modiPeli=dbHelper.getPelicula(recivePeliId);
+        campoNombre.setText(modiPeli.getNombre());
+        campoDesc.setText(modiPeli.getDescripcion());
+        comYear.setText(modiPeli.getYear().toString());
+        comGeneros.setText(modiPeli.getGenero());
+
+
 
         btnHablar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,58 +75,12 @@ public class InsertarPelicula extends AppCompatActivity {
             }
         });
 
-        //rellenar spinner generos
-       ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.combo_generos,
-               android.R.layout.simple_spinner_item);
 
 
-
-        comGeneros.setAdapter(adapter);
-        comGeneros.setPrompt(getString(R.string.Generos));
-        comGeneros.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
+        btnupdate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(parent.getContext(),"Seleccionado: "+parent.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_SHORT).show();
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });comGeneros.setPrompt(getString(R.string.Generos));
-
-        //rellenar spinner año
-       /* ArrayAdapter<CharSequence> adapter1=ArrayAdapter.createFromResource(this,R.array.combo_year,
-                android.R.layout.simple_spinner_item);*/ //este era el metodo antiguo metia los años de manera "manual" desde un array creado a mano en values
-
-        //cargo el array con los años desde 1900 hasta el año almacenado en el calendario
-        ArrayList<String> years = new ArrayList<String>();
-        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
-        for (int i = 1900; i <= thisYear; i++) {
-            years.add(Integer.toString(i)); }
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
-        Spinner spinYear = (Spinner)findViewById(R.id.spinnerYear); spinYear.setAdapter(adapter1);
-
-
-
-        comYear.setAdapter(adapter1);
-        comYear.setPrompt(getString(R.string.Año));
-        comYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(parent.getContext(),"Seleccionado: "+parent.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onClick(View v) {
+                updatePelicula();
             }
         });
 
@@ -191,15 +162,12 @@ public class InsertarPelicula extends AppCompatActivity {
 
 
 
-    public void onClick (View view){
-        registrarPelicula();
-    }
-    private void registrarPelicula(){
-        String nombre = campoNombre.getText().toString().trim();
-        String genero = comGeneros.getSelectedItem().toString().trim();
-        Integer year = Integer.valueOf(comYear.getSelectedItem().toString().trim());
-        String descripcion = campoDesc.getText().toString().trim();
 
+     private void updatePelicula(){
+        String nombre = campoNombre.getText().toString().trim();
+        String genero = comGeneros.getText().toString().trim();
+        Integer year = Integer.valueOf(comYear.getText().toString().trim());
+        String descripcion = campoDesc.getText().toString().trim();
 
         if(nombre.isEmpty()){
             //error name is empty
@@ -209,19 +177,13 @@ public class InsertarPelicula extends AppCompatActivity {
             //error name is empty
             Toast.makeText(this, "Tienes que introducir el genero", Toast.LENGTH_SHORT).show();
         }
-        try {dbHelper = new ConexionSqliteHelper(this);
-            //crear nueva peli
-            Pelicula pelicula = new Pelicula(nombre, genero, year,descripcion);
-            dbHelper.insertPelicula(pelicula);
-            Toast.makeText(this, "Pelicula insertada", Toast.LENGTH_SHORT).show();
 
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-
-
+        Pelicula UDPelicula = new Pelicula(nombre, genero, year, descripcion);
+        dbHelper.updatePelicula(recivePeliId,this,UDPelicula);
+        volver();
+    }
+    private void volver(){
+        startActivity(new Intent(this,MainActivity.class));
     }
 
 }

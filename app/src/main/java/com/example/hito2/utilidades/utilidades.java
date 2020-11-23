@@ -14,15 +14,5 @@ public class utilidades {
             " "+CAMPO_YEAR+" INTEGER, "+CAMPO_DESCRIPCION+" TEXT)";
 
 
-    /////////tabla usuarios
-
-    public static String TABLA_USUARIO="usuario";
-    public static final String CAMPO_ID_Usuario="id";
-    public static String CAMPO_USERNAME="username";
-    public static String CAMPO_PASSWORD="passwd";
-
-    public static final String CREAR_TABLA_USUARIO="CREATE TABLE " +
-            ""+TABLA_USUARIO+"("+CAMPO_ID_Usuario+" INTEGER PRIMARY KEY AUTOINCREMENT, "+CAMPO_USERNAME+" TEXT, "+CAMPO_PASSWORD+" TEXT)";
-
 
 }

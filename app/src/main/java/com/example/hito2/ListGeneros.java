@@ -1,6 +1,5 @@
 package com.example.hito2;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,20 +14,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.hito2.Adaptadores.ListaPeliculasadapter;
+import com.example.hito2.Adaptadores.PeliAdapter;
 import com.example.hito2.entidades.ConexionSqliteHelper;
 import com.example.hito2.entidades.Pelicula;
 import com.example.hito2.utilidades.utilidades;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
 public class ListGeneros extends AppCompatActivity {
-    ArrayList<Pelicula> listPelicula;
-    RecyclerView recyclerViewPeliculas;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    ConexionSqliteHelper conn;
-    ListaPeliculasadapter adapter;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayaoutManager;
+    private ConexionSqliteHelper dbHelper;
+    private PeliAdapter adapter;
+
+
+
 
 
 
@@ -36,98 +36,32 @@ public class ListGeneros extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_generos);
-
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-
-        conn = new ConexionSqliteHelper(getApplicationContext(),"bd_pelicula", null,1);
-
-        listPelicula=new ArrayList<>();
-        recyclerViewPeliculas= (RecyclerView) findViewById(R.id.my_recycler_pelis);
-        recyclerViewPeliculas.setLayoutManager(new LinearLayoutManager(this));
-
-        consultarListaPeliculas();
-
-        adapter=new ListaPeliculasadapter(listPelicula);
-        recyclerViewPeliculas.setAdapter(adapter);
-
-
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Esto se ejecuta cada vez que se realiza el gesto
-                listPelicula.clear();
-                consultarListaPeliculas();
-
-                ListaPeliculasadapter adapter=new ListaPeliculasadapter(listPelicula);
-                recyclerViewPeliculas.setAdapter(adapter);
-
-
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
-
-
-        //refresh al deslizar para abajo
-        adapter.serOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),
-                        "Seleccionada : "+ listPelicula.get(recyclerViewPeliculas.getChildAdapterPosition(v)).getNombre(),
-                        Toast.LENGTH_SHORT).show();
-
-
-                int id = listPelicula.get(recyclerViewPeliculas.getChildAdapterPosition(v)).getId();
-                BoradoPeli(id);
-
-                listPelicula.clear();
-                consultarListaPeliculas();
-                recyclerViewPeliculas.setAdapter(adapter);
-
-
-
-            }
-
-        });
-
-
-
-
-
-    }
-
-    private void consultarListaPeliculas(){
         String genero = getIntent().getStringExtra("Genero");
-        SQLiteDatabase db=conn.getReadableDatabase();
+        mRecyclerView=(RecyclerView)findViewById(R.id.my_recycler_pelis);
+        mRecyclerView.setHasFixedSize(true);
 
-        Pelicula pelicula = null;
+        mLayaoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayaoutManager);
 
-        Cursor cursor= db.rawQuery("SELECT * FROM " + utilidades.TABLA_PELICULA +" WHERE "+ utilidades.CAMPO_GENERO +" = "+ "'"+ genero +"'", null);
+        precyclerView(genero);
 
-        while(cursor.moveToNext()){
-
-            pelicula=new Pelicula();
-
-            pelicula.setId(cursor.getInt(0));
-            pelicula.setNombre(cursor.getString(1));
-            pelicula.setGenero(cursor.getString(2));
-            pelicula.setYear(cursor.getInt(3));
-            pelicula.setDescripcion(cursor.getString(4));
-
-            listPelicula.add(pelicula);
-            db.close();
-
-        }
     }
+    private void precyclerView(String filtro){
+
+        dbHelper = new ConexionSqliteHelper(this);
+        adapter = new PeliAdapter(dbHelper.pelisList(filtro),this,mRecyclerView);
+        mRecyclerView.setAdapter(adapter);
+
+    }
+
+
+
     //Mostrar y ocultar el menu
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.overflow, menu);
         return true;
 
     }
-
-
-
 
     //fuciones botones menu
     public boolean onOptionsItemSelected(MenuItem item){
@@ -161,17 +95,9 @@ public class ListGeneros extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void BoradoPeli(int id){
-        SQLiteDatabase db=conn.getReadableDatabase();
-        db.execSQL("DELETE FROM " + utilidades.TABLA_PELICULA +" WHERE ID =" + id);
-        db.close();
-
-
-        }
-
-
-
-
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
 }
