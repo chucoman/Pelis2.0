@@ -1,14 +1,23 @@
 package com.example.hito2;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,37 +28,54 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.hito2.Adaptadores.PeliAdapter;
-import com.example.hito2.entidades.ConexionSqliteHelper;
-import com.example.hito2.entidades.Pelicula;
-import com.example.hito2.utilidades.utilidades;
+import com.example.hito2.Conexion.ConexionSqliteHelper;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class InsertarPelicula extends AppCompatActivity {
 
     private static final int REQ_CODE_SPEECH_INPUT=100;
+
+    private  static final int CAMERA_REQUEST_CODE = 100;
+    private static final int STORAGE_REQUEST_CODE = 101;
+    //selección de imagen Constants
+    private static final int IMAGE_PICK_CAMERA_CODE = 102;
+    private static final int IMAGE_PICK_GALLERY_CODE = 103;
+    private Uri imageUri;
+    // matrices de permisos
+    private String[] cameraPermissions; // cámara y almacenamiento
+    private String [] storagePermissions;// solo almacenamiento
     private ImageButton btnHablar;
+    private CircleImageView profileIv;
     Spinner comGeneros;
     Spinner comYear;
     EditText campoNombre, campoDesc;
+    private String nombre, genero, year,  descrip;
     private ConexionSqliteHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insertar);
-        String campoGen;
-        String campoYear;
+
 
         //campoId= findViewById(R.id.campoId); al ser el campo un autoincremental no es necesario
+        profileIv = findViewById(R.id.profileIv);
         campoNombre= findViewById(R.id.campoNombre);
         comGeneros= findViewById(R.id.spinnerGenero);
         comYear= findViewById(R.id.spinnerYear);
         campoDesc= findViewById(R.id.campoDescrip);
         btnHablar=findViewById(R.id.btnMicro);
+        cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        //inicializar bd helper
+        dbHelper = new ConexionSqliteHelper(this);
 
         btnHablar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,10 +83,18 @@ public class InsertarPelicula extends AppCompatActivity {
                 iniciarEntradaVoz();
             }
         });
+        profileIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // muestra el cuadro de diálogo de selección de imagen
+                imagePickDialog();
+            }
+        });
+
 
         //rellenar spinner generos
-       ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.combo_generos,
-               android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.combo_generos,
+                android.R.layout.simple_spinner_item);
 
 
 
@@ -114,24 +148,79 @@ public class InsertarPelicula extends AppCompatActivity {
         });
 
     }
+    private void registrarPelicula(){
+        nombre = ""+campoNombre.getText().toString().trim();
+        genero = ""+comGeneros.getSelectedItem().toString().trim();
+        year = ""+comYear.getSelectedItem().toString().trim();
+        descrip = ""+campoDesc.getText().toString().trim();
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode){
-            case REQ_CODE_SPEECH_INPUT: {
-                if(resultCode== RESULT_OK && null!=data){
-                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    campoDesc.setText(result.get(0));
+        long id = dbHelper.insertPelicula(""+nombre,""+genero,""+year,""+imageUri,""+descrip);
 
-                }
-                break;
-            }
-        }
+
+        Toast.makeText(getApplicationContext(),"Id Registro: registro guardado",Toast.LENGTH_SHORT).show();
+
+
+        //Volvemos a poner en blanco los campos
+        campoNombre.setText("");
+        campoDesc.setText("");
+
+
 
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //image picked from camera or gallery will be received hare
+        if (resultCode == RESULT_OK){
+            //Image is picked
+            switch(requestCode){
+                case REQ_CODE_SPEECH_INPUT: {
+                    if(resultCode== RESULT_OK && null!=data){
+                        ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                        campoDesc.setText(result.get(0));
 
+                    }
+                    break;}
+                    case IMAGE_PICK_GALLERY_CODE: {
+                        CropImage.activity(data.getData())
+                                .setGuidelines(CropImageView.Guidelines.ON)
+                                .setAspectRatio(1, 1)
+                                .start(this);
+                        break;
+
+                    }
+                case IMAGE_PICK_CAMERA_CODE:{
+                    //Picked from camera
+                    //crop Image
+                    CropImage.activity(imageUri)
+                            .setGuidelines(CropImageView.Guidelines.ON)
+                            .setAspectRatio(1, 1)
+                            .start(this);
+                    break;
+                }
+                case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:{
+                    CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                    if (resultCode == RESULT_OK){
+                        Uri resultUri = result.getUri();
+                        imageUri = resultUri;
+                        //set Image
+                        profileIv.setImageURI(resultUri);
+                    }
+                    else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
+                        //ERROR
+                        Exception error = result.getError();
+                        Toast.makeText(this, ""+error, Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                }
+
+            }
+
+
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
     private void iniciarEntradaVoz() {
 
         Intent intent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -143,19 +232,13 @@ public class InsertarPelicula extends AppCompatActivity {
         }catch (ActivityNotFoundException e){
 
         }
-
-
-
-
     }
-
     //Mostrar y ocultar el menu
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.overflow, menu);
         return true;
 
     }
-
     //fuciones botones menu
     public boolean onOptionsItemSelected(MenuItem item){
         int id =item.getItemId();
@@ -188,40 +271,129 @@ public class InsertarPelicula extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
     public void onClick (View view){
         registrarPelicula();
     }
-    private void registrarPelicula(){
-        String nombre = campoNombre.getText().toString().trim();
-        String genero = comGeneros.getSelectedItem().toString().trim();
-        Integer year = Integer.valueOf(comYear.getSelectedItem().toString().trim());
-        String descripcion = campoDesc.getText().toString().trim();
+    private boolean checkStoragePermission(){
+        //comprobar si el permiso de almacenamiento está habilitado o no
+        boolean result = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
 
+        return result;
+    }
+    private  void requestStoragePermission(){
+        // solicita el permiso de almacenamiento
+        ActivityCompat.requestPermissions(this, storagePermissions, STORAGE_REQUEST_CODE);
+    }
+    private boolean checkCameraPermission(){
+        // verifica si el permiso de la cámara está habilitado o no
+        boolean result = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
+        boolean result1 = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
 
-        if(nombre.isEmpty()){
-            //error name is empty
-            Toast.makeText(this, "Tienes que introducir el nombre", Toast.LENGTH_SHORT).show();
+        return result && result1;
+    }
+    private void requestCameraPermission(){
+        // solicita el permiso de la cámara
+        ActivityCompat.requestPermissions(this, cameraPermissions, CAMERA_REQUEST_CODE);
+    }
+    private void imagePickDialog(){
+        // opciones para mostrar en el diálogo
+        String[] options = {"Camara", "Galeria"};
+        //dialogo
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //Titulo
+        builder.setTitle("Seleccionar imagen");
+        // establecer elementos / opciones
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // manejar clicks
+                if (which==0){
+                    //click en camara
+                    if (!checkCameraPermission()){
+                        requestCameraPermission();
+                    }
+                    else{
+                        // permiso ya otorgado
+                        PickFromCamera();
+                    }
+
+                }
+                else if (which==1){
+                    if (!checkStoragePermission()){
+                        requestStoragePermission();
+                    }
+                    else{
+                        // permiso ya otorgado
+                        PickFromGallery();
+                    }
+                }
+            }
+        });
+
+        // Crear / mostrar diálogo
+        builder.create().show();
+    }
+    private void PickFromCamera() {
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "Titulo de la Imagen");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "Descripción de la imagen");
+        //put image Uri
+        imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        // Intento de abrir la cámara para la imagen
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
+    }
+    private void PickFromGallery() {
+        // intento de elegir la imagen de la galería, la imagen se devolverá en el método onActivityResult
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_CODE);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // resultado del permiso permitido / denegado
+
+        switch (requestCode){
+            case CAMERA_REQUEST_CODE:{
+                if (grantResults.length>0){
+
+                    boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+
+                    if(cameraAccepted && storageAccepted){
+                        // ambos permisos permitidos
+                        PickFromCamera();
+                    }
+                    else{
+                        Toast.makeText(this, "Se requieren permisos de cámara y almacenamiento", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+            break;
+            case STORAGE_REQUEST_CODE:{
+                if (grantResults.length>0){
+
+                    // si se permite devolver verdadero de lo contrario falso
+                    boolean storageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    if (storageAccepted){
+                        // permiso de almacenamiento permitido
+                        PickFromGallery();
+                    }
+                    else{
+                        Toast.makeText(this, "Se requiere permiso de almacenamiento", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+            break;
         }
-        if(genero.isEmpty()){
-            //error name is empty
-            Toast.makeText(this, "Tienes que introducir el genero", Toast.LENGTH_SHORT).show();
-        }
-        try {dbHelper = new ConexionSqliteHelper(this);
-            //crear nueva peli
-            Pelicula pelicula = new Pelicula(nombre, genero, year,descripcion);
-            dbHelper.insertPelicula(pelicula);
-            Toast.makeText(this, "Pelicula insertada", Toast.LENGTH_SHORT).show();
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-
-
     }
 
 }

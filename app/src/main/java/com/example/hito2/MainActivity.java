@@ -10,10 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.hito2.entidades.ConexionSqliteHelper;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -33,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.Theme_Hito2);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -84,36 +82,36 @@ public class MainActivity extends AppCompatActivity {
 
     //funciones botones generos
     public void Ficcion(View view){
-        Intent list= new Intent(this, ListGeneros.class);
-        list.putExtra("Genero","Ficcion");
-        startActivity(list);
+        Intent listfic= new Intent(this, ListGeneros.class);
+        listfic.putExtra("Genero","Ficcion");
+        startActivity(listfic);
     }
     public void Accion(View view){
-        Intent list = new Intent(this, ListGeneros.class);
-        list.putExtra("Genero","Accion");
-        startActivity(list);
+        Intent listac = new Intent(this, ListGeneros.class);
+        listac.putExtra("Genero","Accion");
+        startActivity(listac);
 
     }
     public void Amor(View view){
-        Intent list = new Intent(this, ListGeneros.class);
-        list.putExtra("Genero","Amor");
-        startActivity(list);
+        Intent listam = new Intent(this, ListGeneros.class);
+        listam.putExtra("Genero","Amor");
+        startActivity(listam);
     }
     public void Drama(View view){
-        Intent list= new Intent(this, ListGeneros.class);
-        list.putExtra("Genero","Drama");
-        startActivity(list);
+        Intent listdr= new Intent(this, ListGeneros.class);
+        listdr.putExtra("Genero","Drama");
+        startActivity(listdr);
     }
     public void Aventura(View view){
-        Intent list = new Intent(this, ListGeneros.class);
-        list.putExtra("Genero","Aventuras");
-        startActivity(list);
+        Intent listav = new Intent(this, ListGeneros.class);
+        listav.putExtra("Genero","Aventuras");
+        startActivity(listav);
 
     }
     public void Terror(View view){
-        Intent list = new Intent(this, ListGeneros.class);
-        list.putExtra("Genero","Terror");
-        startActivity(list);
+        Intent listte = new Intent(this, ListGeneros.class);
+        listte.putExtra("Genero","Terror");
+        startActivity(listte);
 
     }
 
@@ -149,13 +147,14 @@ public class MainActivity extends AppCompatActivity {
 
         }
         else if(id ==R.id.item5) {//menu de mapa
-            Intent listar = new Intent(this, Map.class);
-            startActivity(listar);
+            Intent mapa = new Intent(this, Map.class);
+            startActivity(mapa);
             Toast.makeText(this, "Mapa", Toast.LENGTH_SHORT).show();
         }
-        else if(id ==R.id.item6) {//menu de mapa
-            finish();
-            Toast.makeText(this, "Mapa", Toast.LENGTH_SHORT).show();}
+        else if(id ==R.id.item6) {//Salir
+            Intent peli = new Intent(this, PelisJson.class);
+            startActivity(peli);
+            Toast.makeText(this, "Cerrando Aplicacion", Toast.LENGTH_SHORT).show();}
 
 
 

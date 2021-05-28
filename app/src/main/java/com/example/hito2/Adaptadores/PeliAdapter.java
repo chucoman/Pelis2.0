@@ -5,7 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.ContextMenu;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +15,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hito2.MainActivity;
 import com.example.hito2.Modif;
 import com.example.hito2.R;
-import com.example.hito2.entidades.ConexionSqliteHelper;
-import com.example.hito2.entidades.Pelicula;
+import com.example.hito2.Conexion.ConexionSqliteHelper;
+import com.example.hito2.Conexion.Pelicula;
 
 import java.util.List;
 
@@ -33,6 +32,7 @@ public class PeliAdapter extends RecyclerView.Adapter<PeliAdapter.ViewHolder>{
         public TextView nombre;
         public TextView genero;
         public TextView year;
+        public de.hdodenhof.circleimageview.CircleImageView imagen;
         public TextView descripcion;
         public View layout;
 
@@ -44,6 +44,7 @@ public class PeliAdapter extends RecyclerView.Adapter<PeliAdapter.ViewHolder>{
             nombre = (TextView) v.findViewById(R.id.textNomb);
             genero = (TextView) v.findViewById(R.id.textGen);
             year = (TextView) v.findViewById(R.id.textYear);
+            imagen =(de.hdodenhof.circleimageview.CircleImageView) v.findViewById(R.id.profileIv1);
             descripcion = (TextView) v.findViewById(R.id.textDesc);
 
 
@@ -85,7 +86,17 @@ public class PeliAdapter extends RecyclerView.Adapter<PeliAdapter.ViewHolder>{
         holder.nombre.setText(pelicula.getNombre());
         holder.genero.setText(pelicula.getGenero());
         holder.year.setText(pelicula.getYear().toString());
-        holder.descripcion.setText(pelicula.getDescripcion());
+        holder.descripcion.setText(pelicula.getDescripcion().toString());
+
+        if (pelicula.getImagen().equals("null")){
+            // no hay imagen en el registro, establecer predeterminado
+            holder.imagen.setImageResource(R.drawable.ic_photo_black);
+        }
+        else {
+            // tener imagen en el registro
+            holder.imagen.setImageURI(Uri.parse(pelicula.getImagen()));
+        }
+
 
         //escuchador de un click
         holder.layout.setOnClickListener(new View.OnClickListener(){

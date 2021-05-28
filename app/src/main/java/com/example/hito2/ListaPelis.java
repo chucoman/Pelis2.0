@@ -5,19 +5,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.hito2.Adaptadores.PeliAdapter;
-import com.example.hito2.entidades.ConexionSqliteHelper;
-import com.example.hito2.entidades.Pelicula;
-import com.example.hito2.utilidades.utilidades;
+import com.example.hito2.Conexion.ConexionSqliteHelper;
+import com.example.hito2.Retrofit.SearchResponse;
 
-import java.util.ArrayList;
 
 public class ListaPelis extends AppCompatActivity {
 private RecyclerView mRecyclerView;
@@ -81,9 +77,14 @@ ConexionSqliteHelper conn;
 
         }
         else if(id ==R.id.item5) {//menu de mapa
-            Intent listar = new Intent(this, Map.class);
-            startActivity(listar);
-            Toast.makeText(this, "Mapa", Toast.LENGTH_SHORT).show();}
+            Intent mapa = new Intent(this, Map.class);
+            startActivity(mapa);
+            Toast.makeText(this, "Mapa", Toast.LENGTH_SHORT).show();
+        }
+        else if(id ==R.id.item6) {//Salir
+            Intent pelis = new Intent(this, SearchResponse.class);
+            startActivity(pelis);
+            Toast.makeText(this, "Cerrando Aplicacion", Toast.LENGTH_SHORT).show();}
 
 
 

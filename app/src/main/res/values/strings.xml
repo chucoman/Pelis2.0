@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Chuco Pelis</string>
+    <string name="app_name">WhiteList</string>
     <string name="Generos">Genders</string>
     <string name="item1">Homepage</string>
     <string name="item2">Languaje</string>
@@ -33,4 +33,5 @@
     <string name="title_activity_map">Map</string>
     <string name="mapa">Mapa</string>
     <string name="cerrar_sesion">Cerrar sesion</string>
+    <string name="todo">TODO</string>
 </resources>

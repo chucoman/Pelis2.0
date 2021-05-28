@@ -8,14 +8,13 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:padding="16dp"
-    android:background="@drawable/fondo"
+    android:background="@color/pBLACK3"
     android:orientation="vertical"
     tools:context=".ListGeneros"
     android:id="@+id/idListadoGen">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/EstiloTextView1"
         android:text="Listado Por Genero"
         android:textSize="30dp"
         android:layout_marginBottom="20dp"/>

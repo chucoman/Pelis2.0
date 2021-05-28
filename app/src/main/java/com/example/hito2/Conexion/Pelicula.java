@@ -1,6 +1,4 @@
-package com.example.hito2.entidades;
-
-import android.widget.AdapterView;
+package com.example.hito2.Conexion;
 
 public class Pelicula {
     private Integer id;
@@ -8,23 +6,35 @@ public class Pelicula {
     private String genero;
     private Integer year;
     private String descripcion;
+    private String imagen;
 
     public Pelicula(Integer id) {
         this.id = id;
     }
 
-    public Pelicula() {
+    public Pelicula(){
+
     }
 
-    public Pelicula(String nombre, String genero, Integer year, String descripcion) {
+    public Pelicula(Integer id, String nombre, String genero, Integer year, String descripcion, String imagen) {
+        this.id = id;
         this.nombre = nombre;
         this.genero = genero;
         this.year = year;
         this.descripcion = descripcion;
+        this.imagen = imagen;
     }
 
-    public Pelicula(Integer id, String nombre, String genero, Integer year, String descripcion) {
-        this.id = id;
+    public Pelicula(String nombre, String genero, Integer year, String descripcion, String imagen) {
+        this.nombre = nombre;
+        this.genero = genero;
+        this.year = year;
+        this.descripcion = descripcion;
+        this.imagen = imagen;
+    }
+
+    public Pelicula( String nombre, String genero, Integer year, String descripcion) {
+
         this.nombre = nombre;
         this.genero = genero;
         this.year = year;
@@ -69,5 +79,25 @@ public class Pelicula {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    @Override
+    public String toString() {
+        return "Pelicula{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", genero='" + genero + '\'' +
+                ", year=" + year +
+                ", descripcion='" + descripcion + '\'' +
+                ", imagen=" + imagen +
+                '}';
     }
 }

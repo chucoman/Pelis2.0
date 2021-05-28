@@ -4,28 +4,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ActivityNotFoundException;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.hito2.entidades.ConexionSqliteHelper;
-import com.example.hito2.entidades.Pelicula;
-import com.example.hito2.utilidades.utilidades;
+import com.example.hito2.Conexion.ConexionSqliteHelper;
+import com.example.hito2.Conexion.Pelicula;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Locale;
 
 public class Modif extends AppCompatActivity {

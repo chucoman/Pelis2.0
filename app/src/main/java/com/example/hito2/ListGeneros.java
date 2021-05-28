@@ -3,23 +3,15 @@ package com.example.hito2;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.hito2.Adaptadores.PeliAdapter;
-import com.example.hito2.entidades.ConexionSqliteHelper;
-import com.example.hito2.entidades.Pelicula;
-import com.example.hito2.utilidades.utilidades;
-
-import java.util.ArrayList;
+import com.example.hito2.Conexion.ConexionSqliteHelper;
 
 public class ListGeneros extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -87,8 +79,8 @@ public class ListGeneros extends AppCompatActivity {
 
         }
         else if(id ==R.id.item5) {//menu de mapa
-            Intent listar = new Intent(this, Map.class);
-            startActivity(listar);
+            Intent mapa = new Intent(this, Map.class);
+            startActivity(mapa);
             Toast.makeText(this, "Mapa", Toast.LENGTH_SHORT).show();}
 
 

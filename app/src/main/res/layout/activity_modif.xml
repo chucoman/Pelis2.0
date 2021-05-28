@@ -9,49 +9,45 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="@drawable/fondo"
+    android:background="@color/pBLACK3"
     tools:context=".Modif">
 
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/EstiloTextView1"
+        android:layout_marginBottom="30dp"
         android:text="EDITOR DE PELICULAS"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="30dp"/>
-
-
+        android:textColor="@color/pIndigo4"
+        android:textSize="25sp" />
 
     <EditText
         android:id="@+id/McampoNombre"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Titulo"/>
+        style="@style/EstiloEditText1"
+        android:textColorHint="@color/colorWhite"
+        android:hint="Titulo"
+        />
 
     <EditText
         android:id="@+id/MspinnerGenero"
         android:spinnerMode="dialog"
         android:prompt="@string/Generos"
-        android:textStyle="bold"
+        android:textColorHint="@color/colorWhite"
+        style="@style/EstiloEditText1"
         android:hint="@string/Generos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        />
 
     <EditText
         android:id="@+id/MspinnerYear"
         android:spinnerMode="dialog"
         android:prompt="@string/Año"
         android:hint="@string/Año"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:textColorHint="@color/colorWhite"
+        style="@style/EstiloEditText1"/>
 
     <EditText
         android:id="@+id/McampoDescrip"
         android:textStyle="bold"
+        android:textColorHint="@color/colorWhite"
         android:inputType="textMultiLine"
         android:lines="8"
         android:minLines="6"
@@ -78,15 +74,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/Presione"
-        android:textColor="#191919"/>
+        android:textColor="@color/colorWhite"/>
 
 
     <Button
         android:id="@+id/MbtnRegistro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Guardar Pelicula" />
+        android:layout_marginTop="120dp"
+        android:text="Guardar Cambios"
+        android:textColor="@color/colorWhite" />
 
 
 </LinearLayout>
