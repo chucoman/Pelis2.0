@@ -52,50 +52,50 @@ public class ConexionSqliteHelper extends SQLiteOpenHelper {
     }
 
     //buscar peliculas
-    public List<Pelicula> pelisList(String genero){
+    public List<MovieSqlite> pelisList(String genero){
         String query;
         if(genero.equals("")){
             query = "SELECT  * FROM " + utilidades.TABLA_PELICULA;
         }else{
             query = "SELECT * FROM "+ utilidades.TABLA_PELICULA +" WHERE genero ='" + genero + "'";
         }
-        List<Pelicula> peliculaLinkedList = new LinkedList<>();
+        List<MovieSqlite> movieSqliteLinkedList = new LinkedList<>();
          SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
-        Pelicula pelicula;
+        MovieSqlite movieSqlite;
         if (cursor.moveToFirst()){
             do{
-                pelicula = new Pelicula();
-                pelicula.setId(Integer.valueOf(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_ID))));
-                pelicula.setNombre(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOMBRE)));
-                pelicula.setGenero(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_GENERO)));
-                pelicula.setYear(cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_YEAR)));
-                pelicula.setImagen(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_IMAGEN)));
-                pelicula.setDescripcion(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_DESCRIPCION)));
-                peliculaLinkedList.add(pelicula);
+                movieSqlite = new MovieSqlite();
+                movieSqlite.setId(Integer.valueOf(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_ID))));
+                movieSqlite.setNombre(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOMBRE)));
+                movieSqlite.setGenero(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_GENERO)));
+                movieSqlite.setYear(cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_YEAR)));
+                movieSqlite.setImagen(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_IMAGEN)));
+                movieSqlite.setDescripcion(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_DESCRIPCION)));
+                movieSqliteLinkedList.add(movieSqlite);
 
             } while (cursor.moveToNext());
         }
-        return peliculaLinkedList;
+        return movieSqliteLinkedList;
     }
 
 
     //buscar peli unica
-    public Pelicula getPelicula(Long id){
+    public MovieSqlite getPelicula(Long id){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT  * FROM PELICULA WHERE id="+ id;
         Cursor cursor = db.rawQuery(query, null);
 
-        Pelicula recivePelicula = new Pelicula();
+        MovieSqlite reciveMovieSqlite = new MovieSqlite();
         if(cursor.getCount() >0){
             cursor.moveToFirst();
-           recivePelicula.setNombre(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOMBRE)));
-           recivePelicula.setGenero(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_GENERO)));
-           recivePelicula.setYear(cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_YEAR)));
-           recivePelicula.setImagen(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_IMAGEN)));
-           recivePelicula.setDescripcion(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_DESCRIPCION)));
+           reciveMovieSqlite.setNombre(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOMBRE)));
+           reciveMovieSqlite.setGenero(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_GENERO)));
+           reciveMovieSqlite.setYear(cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_YEAR)));
+           reciveMovieSqlite.setImagen(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_IMAGEN)));
+           reciveMovieSqlite.setDescripcion(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_DESCRIPCION)));
         }
-        return recivePelicula;
+        return reciveMovieSqlite;
 
     }
 
@@ -108,14 +108,14 @@ public class ConexionSqliteHelper extends SQLiteOpenHelper {
     }
 
     //update
-    public void updatePelicula(long peliculaId, Context context, Pelicula updatePelicula){
+    public void updatePelicula(long peliculaId, Context context, MovieSqlite updateMovieSqlite){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE PELICULA SET " +
-                "nombre ='"+ updatePelicula.getNombre() +
-                "', genero ='" + updatePelicula.getGenero()+
-                "', year ='"+ updatePelicula.getYear() +
-                "', imagen ='"+ updatePelicula.getImagen() +
-                "', descripcion ='"+ updatePelicula.getDescripcion() +
+                "nombre ='"+ updateMovieSqlite.getNombre() +
+                "', genero ='" + updateMovieSqlite.getGenero()+
+                "', year ='"+ updateMovieSqlite.getYear() +
+                "', imagen ='"+ updateMovieSqlite.getImagen() +
+                "', descripcion ='"+ updateMovieSqlite.getDescripcion() +
                 "'  WHERE id=" + peliculaId + "");
         Toast.makeText(context, "Modificacion Completada.", Toast.LENGTH_SHORT).show();
     }

@@ -1,4 +1,4 @@
-package com.example.hito2.Retrofit;
+package com.example.hito2.Retrofit.models;
 
 public class MovieModelClass {
     String id;

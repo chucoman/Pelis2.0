@@ -1,6 +1,6 @@
 package com.example.hito2.Conexion;
 
-public class Pelicula {
+public class MovieSqlite {
     private Integer id;
     private String nombre;
     private String genero;
@@ -8,15 +8,15 @@ public class Pelicula {
     private String descripcion;
     private String imagen;
 
-    public Pelicula(Integer id) {
+    public MovieSqlite(Integer id) {
         this.id = id;
     }
 
-    public Pelicula(){
+    public MovieSqlite(){
 
     }
 
-    public Pelicula(Integer id, String nombre, String genero, Integer year, String descripcion, String imagen) {
+    public MovieSqlite(Integer id, String nombre, String genero, Integer year, String descripcion, String imagen) {
         this.id = id;
         this.nombre = nombre;
         this.genero = genero;
@@ -25,7 +25,7 @@ public class Pelicula {
         this.imagen = imagen;
     }
 
-    public Pelicula(String nombre, String genero, Integer year, String descripcion, String imagen) {
+    public MovieSqlite(String nombre, String genero, Integer year, String descripcion, String imagen) {
         this.nombre = nombre;
         this.genero = genero;
         this.year = year;
@@ -33,7 +33,7 @@ public class Pelicula {
         this.imagen = imagen;
     }
 
-    public Pelicula( String nombre, String genero, Integer year, String descripcion) {
+    public MovieSqlite(String nombre, String genero, Integer year, String descripcion) {
 
         this.nombre = nombre;
         this.genero = genero;

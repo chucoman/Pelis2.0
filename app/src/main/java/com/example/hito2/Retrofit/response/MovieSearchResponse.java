@@ -23,6 +23,7 @@ public class MovieSearchResponse {
     public int getTotal_count(){
         return total_count;
     }
+
     public List<MovieModel> getMovies(){
         return movies;
     }
@@ -34,4 +35,5 @@ public class MovieSearchResponse {
                 ", movies=" + movies +
                 '}';
     }
+
 }

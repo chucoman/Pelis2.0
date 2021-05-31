@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.example.hito2.Adaptadores.PeliAdapter;
 import com.example.hito2.Conexion.ConexionSqliteHelper;
-import com.example.hito2.Retrofit.SearchResponse;
 
 
 public class ListaPelis extends AppCompatActivity {
@@ -82,8 +81,8 @@ ConexionSqliteHelper conn;
             Toast.makeText(this, "Mapa", Toast.LENGTH_SHORT).show();
         }
         else if(id ==R.id.item6) {//Salir
-            Intent pelis = new Intent(this, SearchResponse.class);
-            startActivity(pelis);
+            finish();
+            System.exit(0);
             Toast.makeText(this, "Cerrando Aplicacion", Toast.LENGTH_SHORT).show();}
 
 
@@ -95,4 +94,5 @@ ConexionSqliteHelper conn;
         super.onResume();
         adapter.notifyDataSetChanged();
     }
+
 }

@@ -5,237 +5,239 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/pBLACK3"
+    android:onClick="masPelis"
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="10"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:weightSum="10">
 
-        <TextView
-            android:id="@+id/textGrid"
-            android:text="Mis Peliculas"
-            android:textSize="34sp"
-            android:textStyle="bold"
-            android:textColor="@color/colorWhite"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </RelativeLayout>
-
-    <GridLayout
-        android:id="@+id/Grid1"
-        android:columnCount="2"
-        android:rowCount="3"
-        android:alignmentMode="alignMargins"
-        android:columnOrderPreserved="false"
-        android:layout_weight="9"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:padding="14dp"
-        >
-
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_row="0"
-            android:layout_rowWeight="1"
-            android:layout_column="0"
-            android:layout_columnWeight="1"
-            android:layout_marginLeft="16dp"
+            android:layout_weight="1">
 
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            app:cardElevation="8dp">
+            <TextView
+                android:id="@+id/textGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mis Peliculas"
+                android:textColor="@color/colorWhite"
+                android:textSize="34sp"
+                android:textStyle="bold" />
 
-            <LinearLayout
-                style="@style/EstiloLineaLayaut"
-                android:background="@color/pBLACK4"
-                android:onClick="Ficcion"
-                android:orientation="vertical">
+            <Button
+                android:id="@+id/btnMas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="110dp"
+                android:layout_toEndOf="@+id/textGrid"
+                android:onClick="masPelis"
+                android:text="Mas pelis"
+                android:textColor="@color/white" />
 
-                <ImageView
-                    style="@style/EstiloImagen1"
-                    android:layout_row="0"
-                    android:layout_column="0"
-                    android:src="@mipmap/ovni"></ImageView>
+        </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/textviewFiccion"
-                    style="@style/EstiloTextView1"
-                    android:text="@string/Ficcion"
-
-                     />
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
+        <GridLayout
+            android:id="@+id/Grid1"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                style="@style/EstiloLineaLayaut"
-                android:background="@color/pBLACK4"
-                android:onClick="Accion"
-               >
-
-                <ImageView
-                    style="@style/EstiloImagen1"
-                    android:layout_row="0"
-                    android:layout_column="0"
-                    android:src="@mipmap/accion"></ImageView>
-
-                <TextView
-                    android:id="@+id/textviewAccion"
-                    style="@style/EstiloTextView1"
-                    android:text="@string/Accion"
-                     />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-               style="@style/EstiloLineaLayaut"
-               android:background="@color/pBLACK4"
-               android:onClick="Amor"
-                >
-
-                <ImageView
-                    style="@style/EstiloImagen1"
-                    android:layout_row="0"
-                    android:layout_column="0"
-                    android:src="@mipmap/amor"></ImageView>
-
-                <TextView
-                    android:id="@+id/textviewAmor"
-                    style="@style/EstiloTextView1"
-                    android:text="@string/Amor"
-                     />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                style="@style/EstiloLineaLayaut"
-                android:background="@color/pBLACK4"
-                android:onClick="Drama"
-                >
-
-                <ImageView
-                    style="@style/EstiloImagen1"
-                    android:layout_row="0"
-                    android:layout_column="0"
-                    android:src="@mipmap/llorar"></ImageView>
-
-                <TextView
-                    android:id="@+id/textviewDrama"
-                    style="@style/EstiloTextView1"
-                    android:text="@string/Drama"
-                     />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                style="@style/EstiloLineaLayaut"
-                android:background="@color/pBLACK4"
-                android:onClick="Aventura"
-                >
-
-                <ImageView
-                    style="@style/EstiloImagen1"
-                    android:layout_row="0"
-                    android:layout_column="0"
-                    android:src="@mipmap/aventuras"></ImageView>
-
-                <TextView
-                    android:id="@+id/textviewAventuras"
-                    style="@style/EstiloTextView1"
-                    android:text="@string/Aventuras"
-                     />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                style="@style/EstiloLineaLayaut"
-                android:background="@color/pBLACK4"
-                android:onClick="Terror"
-                >
-
-                <ImageView
-                    style="@style/EstiloImagen1"
-                    android:layout_row="0"
-                    android:layout_column="0"
-                    android:src="@mipmap/asesinos"></ImageView>
-
-                <TextView
-                    android:id="@+id/textviewTerror"
-                    style="@style/EstiloTextView1"
-                    android:text="@string/Terror"
-                     />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
+            android:layout_weight="9"
+            android:alignmentMode="alignMargins"
+            android:columnCount="2"
+            android:columnOrderPreserved="false"
+            android:padding="14dp"
+            android:rowCount="3">
 
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_row="0"
+                android:layout_rowWeight="1"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="16dp"
+
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    style="@style/EstiloLineaLayaut"
+                    android:background="@color/pBLACK4"
+                    android:onClick="Ficcion"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        style="@style/EstiloImagen1"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:src="@mipmap/ovni"></ImageView>
+
+                    <TextView
+                        android:id="@+id/textviewFiccion"
+                        style="@style/EstiloTextView1"
+                        android:text="@string/Ficcion"
+
+                        />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    style="@style/EstiloLineaLayaut"
+                    android:background="@color/pBLACK4"
+                    android:onClick="Accion">
+
+                    <ImageView
+                        style="@style/EstiloImagen1"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:src="@mipmap/accion"></ImageView>
+
+                    <TextView
+                        android:id="@+id/textviewAccion"
+                        style="@style/EstiloTextView1"
+                        android:text="@string/Accion" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    style="@style/EstiloLineaLayaut"
+                    android:background="@color/pBLACK4"
+                    android:onClick="Amor">
+
+                    <ImageView
+                        style="@style/EstiloImagen1"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:src="@mipmap/amor"></ImageView>
+
+                    <TextView
+                        android:id="@+id/textviewAmor"
+                        style="@style/EstiloTextView1"
+                        android:text="@string/Amor" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    style="@style/EstiloLineaLayaut"
+                    android:background="@color/pBLACK4"
+                    android:onClick="Drama">
+
+                    <ImageView
+                        style="@style/EstiloImagen1"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:src="@mipmap/llorar"></ImageView>
+
+                    <TextView
+                        android:id="@+id/textviewDrama"
+                        style="@style/EstiloTextView1"
+                        android:text="@string/Drama" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    style="@style/EstiloLineaLayaut"
+                    android:background="@color/pBLACK4"
+                    android:onClick="Aventura">
+
+                    <ImageView
+                        style="@style/EstiloImagen1"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:src="@mipmap/aventuras"></ImageView>
+
+                    <TextView
+                        android:id="@+id/textviewAventuras"
+                        style="@style/EstiloTextView1"
+                        android:text="@string/Aventuras" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    style="@style/EstiloLineaLayaut"
+                    android:background="@color/pBLACK4"
+                    android:onClick="Terror">
+
+                    <ImageView
+                        style="@style/EstiloImagen1"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:src="@mipmap/asesinos"></ImageView>
+
+                    <TextView
+                        android:id="@+id/textviewTerror"
+                        style="@style/EstiloTextView1"
+                        android:text="@string/Terror" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
 
 
-    </GridLayout>
+        </GridLayout>
     </LinearLayout>
 </LinearLayout>

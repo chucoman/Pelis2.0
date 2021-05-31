@@ -11,17 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.hito2.Retrofit.MovieModelClass;
+import com.example.hito2.Retrofit.models.MovieModelClass;
 import com.example.hito2.R;
 
 import java.util.List;
 
-public class Adaptery extends RecyclerView.Adapter<Adaptery.MyViewHolder> {
+public class Adapteryretrofit1 extends RecyclerView.Adapter<Adapteryretrofit1.MyViewHolder> {
 
     private Context mContext;
     private List<MovieModelClass> mData;
 
-    public Adaptery(Context mContext, List<MovieModelClass> mData) {
+    public Adapteryretrofit1(Context mContext, List<MovieModelClass> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }

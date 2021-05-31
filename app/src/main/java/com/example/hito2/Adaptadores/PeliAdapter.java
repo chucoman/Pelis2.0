@@ -18,12 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hito2.Modif;
 import com.example.hito2.R;
 import com.example.hito2.Conexion.ConexionSqliteHelper;
-import com.example.hito2.Conexion.Pelicula;
+import com.example.hito2.Conexion.MovieSqlite;
 
 import java.util.List;
 
 public class PeliAdapter extends RecyclerView.Adapter<PeliAdapter.ViewHolder>{
-    private List<Pelicula> listaPelicula;
+    private List<MovieSqlite> listaMovieSqlite;
     private Context mContext;
     private RecyclerView mReciclerV;
 
@@ -51,20 +51,20 @@ public class PeliAdapter extends RecyclerView.Adapter<PeliAdapter.ViewHolder>{
         }
     }
 
-    public void add(int position, Pelicula pelicula ){
-        listaPelicula.add(position, pelicula);
+    public void add(int position, MovieSqlite movieSqlite){
+        listaMovieSqlite.add(position, movieSqlite);
         notifyItemInserted(position);
     }
     public void remove(int position){
-        listaPelicula.remove(position);
+        listaMovieSqlite.remove(position);
         notifyItemRemoved(position);
     }
 
 
 
 
-    public PeliAdapter(List<Pelicula> dataset, Context context, RecyclerView recyclerView){
-        listaPelicula = dataset;
+    public PeliAdapter(List<MovieSqlite> dataset, Context context, RecyclerView recyclerView){
+        listaMovieSqlite = dataset;
         mContext = context;
         mReciclerV = recyclerView;
 
@@ -81,20 +81,20 @@ public class PeliAdapter extends RecyclerView.Adapter<PeliAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-        final Pelicula pelicula = listaPelicula.get(position);
-        holder.id.setText(pelicula.getId().toString());
-        holder.nombre.setText(pelicula.getNombre());
-        holder.genero.setText(pelicula.getGenero());
-        holder.year.setText(pelicula.getYear().toString());
-        holder.descripcion.setText(pelicula.getDescripcion().toString());
+        final MovieSqlite movieSqlite = listaMovieSqlite.get(position);
+        holder.id.setText(movieSqlite.getId().toString());
+        holder.nombre.setText(movieSqlite.getNombre());
+        holder.genero.setText(movieSqlite.getGenero());
+        holder.year.setText(movieSqlite.getYear().toString());
+        holder.descripcion.setText(movieSqlite.getDescripcion().toString());
 
-        if (pelicula.getImagen().equals("null")){
+        if (movieSqlite.getImagen().equals("null")){
             // no hay imagen en el registro, establecer predeterminado
             holder.imagen.setImageResource(R.drawable.ic_photo_black);
         }
         else {
             // tener imagen en el registro
-            holder.imagen.setImageURI(Uri.parse(pelicula.getImagen()));
+            holder.imagen.setImageURI(Uri.parse(movieSqlite.getImagen()));
         }
 
 
@@ -109,21 +109,21 @@ public class PeliAdapter extends RecyclerView.Adapter<PeliAdapter.ViewHolder>{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //ir a modificar
-                        String i = pelicula.getId().toString();
+                        String i = movieSqlite.getId().toString();
 
                         Toast.makeText(mContext, i, Toast.LENGTH_SHORT).show();
-                        llevarAModificar(pelicula.getId());
+                        llevarAModificar(movieSqlite.getId());
 
                     }
                 }).setNeutralButton("Borrar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ConexionSqliteHelper dbHelper = new ConexionSqliteHelper(mContext);
-                        dbHelper.borrarPelicula(pelicula.getId(), mContext);
-                        listaPelicula.remove(position);
+                        dbHelper.borrarPelicula(movieSqlite.getId(), mContext);
+                        listaMovieSqlite.remove(position);
                         mReciclerV.removeViewAt(position);
                         notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, listaPelicula.size());
+                        notifyItemRangeChanged(position, listaMovieSqlite.size());
                         notifyDataSetChanged();
                     }
                 });
@@ -141,13 +141,13 @@ public class PeliAdapter extends RecyclerView.Adapter<PeliAdapter.ViewHolder>{
     @Override
     public int getItemCount() {
 
-        return listaPelicula.size();
+        return listaMovieSqlite.size();
     }
 
 
 
     public void deleteItem(int index) {
-        listaPelicula.remove(index);
+        listaMovieSqlite.remove(index);
         notifyItemRemoved(index);
     }
     private void llevarAModificar(long peliId){
@@ -159,7 +159,7 @@ public class PeliAdapter extends RecyclerView.Adapter<PeliAdapter.ViewHolder>{
 
 
     public void RemoveItem(int position){
-    listaPelicula.remove(position);
+    listaMovieSqlite.remove(position);
     notifyDataSetChanged();
     }
 }

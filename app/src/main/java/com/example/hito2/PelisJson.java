@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.hito2.Adaptadores.Adaptery;
-import com.example.hito2.Retrofit.MovieModelClass;
+import com.example.hito2.Adaptadores.Adapteryretrofit1;
+import com.example.hito2.Retrofit.models.MovieModelClass;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,7 +29,8 @@ import java.util.List;
 
 public class PelisJson extends AppCompatActivity {
     //Json Link de TMDB
-    private static String JSON_URL = "https://api.themoviedb.org/3/movie/popular?api_key=3bb1f59db17ac605ef7cdd6d42a32cd7&page=1";
+    int pageNum = 1;
+    private  String JSON_URL = "https://api.themoviedb.org/3/movie/popular?api_key=3bb1f59db17ac605ef7cdd6d42a32cd7&page=";
 
     List<MovieModelClass> movieList;
     ImageView cabecera;
@@ -52,10 +54,6 @@ public class PelisJson extends AppCompatActivity {
         GetData getData = new GetData();
         getData.execute();
 
-
-
-
-
     }
     public class GetData extends AsyncTask<String, String, String>{
 
@@ -69,7 +67,8 @@ public class PelisJson extends AppCompatActivity {
                 HttpURLConnection urlConnection = null;
 
                 try{
-                url = new URL(JSON_URL);
+                url = new URL(JSON_URL+pageNum);
+                Log.v("Tag","url"+ JSON_URL+pageNum);
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 InputStream is = urlConnection.getInputStream();
@@ -127,10 +126,10 @@ public class PelisJson extends AppCompatActivity {
     }
 
     private void PutDataIntoRecyclerView(List<MovieModelClass> movieList){
-        Adaptery adaptery = new Adaptery(this, movieList);
+        Adapteryretrofit1 adapteryretrofit1 = new Adapteryretrofit1(this, movieList);
         //recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLayoutManager(new GridLayoutManager(this,3));
-        recyclerView.setAdapter(adaptery);
+        recyclerView.setAdapter(adapteryretrofit1);
     }
 
 

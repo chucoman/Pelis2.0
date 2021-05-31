@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -20,9 +21,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth mfirebaseAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
-
+   
     public static final int REQUEST_CODE = 4859; //constante
-
+    
     List<AuthUI.IdpConfig> provider = Arrays.asList(
             // new AuthUI.IdpConfig.FacebookBuilder().build(),
             new AuthUI.IdpConfig.GoogleBuilder().build()
@@ -30,9 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Button btn;
         setTheme(R.style.Theme_Hito2);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        btn = findViewById(R.id.btnMas);
 
 
         mfirebaseAuth = FirebaseAuth.getInstance();
@@ -81,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
     //funciones botones generos
+    public void masPelis(View view){
+        Intent masPelis = new Intent(this,SearchResponse.class);
+        startActivity(masPelis);
+    }
     public void Ficcion(View view){
         Intent listfic= new Intent(this, ListGeneros.class);
         listfic.putExtra("Genero","Ficcion");
@@ -152,8 +159,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Mapa", Toast.LENGTH_SHORT).show();
         }
         else if(id ==R.id.item6) {//Salir
-            Intent peli = new Intent(this, PelisJson.class);
-            startActivity(peli);
+            finish();
+            System.exit(0);
             Toast.makeText(this, "Cerrando Aplicacion", Toast.LENGTH_SHORT).show();}
 
 

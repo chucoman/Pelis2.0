@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo"
+    android:background="@color/pBLACK4"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -18,6 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:text="REGISTRO DE PELICULAS"
         android:textAlignment="center"
         android:textSize="25sp"
@@ -43,6 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/profileIv"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:hint="Titulo"
         android:textStyle="bold" />
 
@@ -52,6 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/campoNombre"
         android:prompt="@string/Generos"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:spinnerMode="dialog"
         android:textStyle="bold" />
 
@@ -71,6 +77,8 @@
         android:layout_height="100dp"
         android:layout_below="@+id/spinnerYear"
         android:hint="@string/Descripcion"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:inputType="textMultiLine"
         android:lines="8"
         android:maxLines="10"
@@ -99,8 +107,10 @@
         android:layout_below="@+id/btnMicro"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:text="@string/Presione"
-        android:textColor="#191919" />
+        />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

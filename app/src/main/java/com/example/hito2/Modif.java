@@ -16,7 +16,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.hito2.Conexion.ConexionSqliteHelper;
-import com.example.hito2.Conexion.Pelicula;
+import com.example.hito2.Conexion.MovieSqlite;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -53,7 +53,7 @@ public class Modif extends AppCompatActivity {
         }catch(Exception e){
             e.printStackTrace();
         }
-        Pelicula modiPeli=dbHelper.getPelicula(recivePeliId);
+        MovieSqlite modiPeli=dbHelper.getPelicula(recivePeliId);
         campoNombre.setText(modiPeli.getNombre());
         campoDesc.setText(modiPeli.getDescripcion());
         comYear.setText(modiPeli.getYear().toString());
@@ -171,8 +171,8 @@ public class Modif extends AppCompatActivity {
             Toast.makeText(this, "Tienes que introducir el genero", Toast.LENGTH_SHORT).show();
         }
 
-        Pelicula UDPelicula = new Pelicula(nombre, genero, year, descripcion);
-        dbHelper.updatePelicula(recivePeliId,this,UDPelicula);
+        MovieSqlite UDMovieSqlite = new MovieSqlite(nombre, genero, year, descripcion);
+        dbHelper.updatePelicula(recivePeliId,this, UDMovieSqlite);
         volver();
     }
     private void volver(){
