@@ -1,19 +1,29 @@
 package com.example.hito2;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
@@ -58,6 +68,9 @@ public class InsertarPelicula extends AppCompatActivity {
     EditText campoNombre, campoDesc;
     private String nombre, genero, year,  descrip;
     private ConexionSqliteHelper dbHelper;
+    private PendingIntent pendingIntent;
+    private final static String CHANNEL_ID = "NOTIFICACION";
+    private final static int NOTIFICACION_ID= 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +132,8 @@ public class InsertarPelicula extends AppCompatActivity {
 
         //rellenar spinner año
        /* ArrayAdapter<CharSequence> adapter1=ArrayAdapter.createFromResource(this,R.array.combo_year,
-                android.R.layout.simple_spinner_item);*/ //este era el metodo antiguo metia los años de manera "manual" desde un array creado a mano en values
+                android.R.layout.simple_spinner_item);*/
+        //este era el metodo antiguo metia los años de manera "manual" desde un array creado a mano en values
 
         //cargo el array con los años desde 1900 hasta el año almacenado en el calendario
         ArrayList<String> years = new ArrayList<String>();
@@ -154,20 +168,36 @@ public class InsertarPelicula extends AppCompatActivity {
         year = ""+comYear.getSelectedItem().toString().trim();
         descrip = ""+campoDesc.getText().toString().trim();
 
-
-        long id = dbHelper.insertPelicula(""+nombre,""+genero,""+year,""+imageUri,""+descrip);
-
-
-        Toast.makeText(getApplicationContext(),"Id Registro: registro guardado",Toast.LENGTH_SHORT).show();
+        try {
+            long id = dbHelper.insertPelicula("" + nombre, "" + genero, "" + year, "" + imageUri, "" + descrip);
 
 
-        //Volvemos a poner en blanco los campos
-        campoNombre.setText("");
-        campoDesc.setText("");
+            Toast.makeText(getApplicationContext(), "Id Registro: registro guardado", Toast.LENGTH_SHORT).show();
+            setPendingIntent();
+            createNotificationChannel(); //para versiones oreo y posteriores
+            createNotification();       //para versioens anteriores a oreo
 
+
+            //Volvemos a poner en blanco los campos
+            campoNombre.setText("");
+            campoDesc.setText("");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
+    private void setPendingIntent(){
+        Intent intent = new Intent(this, ListaPelis.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(ListaPelis.class);
+        stackBuilder.addNextIntentWithParentStack(intent);
+        pendingIntent = stackBuilder.getPendingIntent(1,PendingIntent.FLAG_UPDATE_CURRENT);
+
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         //image picked from camera or gallery will be received hare
@@ -395,5 +425,35 @@ public class InsertarPelicula extends AppCompatActivity {
             break;
         }
     }
+
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Notificacion";
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+
+
+        }
+    }
+
+
+    private void createNotification(){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.logo_small);
+        builder.setContentTitle("Notificacion de insercion");
+        builder.setContentText("Se a insertado una nueva pelicula en la base de datos personal");
+        builder.setColor(Color.WHITE);
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setLights(Color.MAGENTA, 1000,1000);
+        builder.setVibrate(new long[]{1000,1000,1000,1000,1000});
+        builder.setDefaults(Notification.DEFAULT_SOUND);
+
+        builder.setContentIntent(pendingIntent);
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.notify(NOTIFICACION_ID,builder.build());
+    } //metodo previo a oreo
 
 }

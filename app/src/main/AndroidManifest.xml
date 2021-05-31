@@ -46,8 +46,14 @@
             android:name=".Map"
             android:label="@string/title_activity_map" />
         <activity android:name=".InfoPopUp" />
-        <activity android:name=".ListaPelis" />
-        <activity android:name=".InsertarPelicula" />
+        <activity android:name=".ListaPelis"/>
+
+        <activity android:name=".InsertarPelicula" android:parentActivityName = ".ListaPelis">
+        <meta-data
+            android:name= "android.support.PARENT_ACTIVITY"
+            android:value=".ListaPelis"
+            />
+        </activity>
         <activity android:name=".ListGeneros" />
         <activity android:name=".DetalleMapa" />
         <activity android:name=".Modif" />

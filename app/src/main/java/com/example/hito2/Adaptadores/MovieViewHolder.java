@@ -23,8 +23,6 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnC
     //escuchador del click
     OnMovieListener onMovieListener;
 
-
-
     public MovieViewHolder(@NonNull View itemView, OnMovieListener onMovieListener) {
         super(itemView);
         this.onMovieListener = onMovieListener;
