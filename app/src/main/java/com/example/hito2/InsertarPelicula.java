@@ -426,7 +426,7 @@ public class InsertarPelicula extends AppCompatActivity {
         }
     }
 
-
+    //notificacion
     private void createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             CharSequence name = "Notificacion";
@@ -437,8 +437,6 @@ public class InsertarPelicula extends AppCompatActivity {
 
         }
     }
-
-
     private void createNotification(){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID);
         builder.setSmallIcon(R.drawable.logo_small);

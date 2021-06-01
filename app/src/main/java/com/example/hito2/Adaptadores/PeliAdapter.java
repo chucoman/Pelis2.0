@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.hito2.Modif;
 import com.example.hito2.R;
 import com.example.hito2.Conexion.ConexionSqliteHelper;
@@ -94,7 +95,10 @@ public class PeliAdapter extends RecyclerView.Adapter<PeliAdapter.ViewHolder>{
         }
         else {
             // tener imagen en el registro
-            holder.imagen.setImageURI(Uri.parse(movieSqlite.getImagen()));
+           // holder.imagen.setImageURI(Uri.parse(movieSqlite.getImagen()));
+            Glide.with(mContext)
+                    .load(movieSqlite.getImagen())
+                    .into(holder.imagen);
         }
 
 
