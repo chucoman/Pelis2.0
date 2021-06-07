@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hito2"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Retrofit.Detalle"></activity>
+        <activity android:name=".Retrofit.Detalle" />
         <activity
             android:name=".SearchResponse"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -41,18 +41,28 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".Map"
             android:label="@string/title_activity_map" />
         <activity android:name=".InfoPopUp" />
-        <activity android:name=".ListaPelis"/>
+        <activity android:name=".ListaPelis" />
+        <activity
+            android:name=".InsertarPelicula"
+            android:parentActivityName=".ListaPelis">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ListaPelis" />
+        </activity>
+        <activity android:name=".animacion">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".InsertarPelicula" android:parentActivityName = ".ListaPelis">
-        <meta-data
-            android:name= "android.support.PARENT_ACTIVITY"
-            android:value=".ListaPelis"
-            />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ListGeneros" />
         <activity android:name=".DetalleMapa" />
@@ -60,11 +70,7 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
